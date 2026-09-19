@@ -93,7 +93,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function run() {
     var q = input.value.trim();
-    if (q.length < 2) {
+    var ch0 = fCh.value, pb0 = fPb.value;
+    var hasFilters = activeCat || ch0 || pb0;
+    /* Fix: filters alone are a valid browse — only demand typed input
+       when nothing else narrows the catalog. */
+    if (q.length < 2 && !hasFilters) {
       status.textContent = "Type at least 2 characters — or pick filters and browse.";
       results.innerHTML = "";
       return;
@@ -101,7 +105,10 @@ document.addEventListener("DOMContentLoaded", function () {
     FPSearch.loadIndex().then(function (docs) {
       if (input.value.trim() !== q) return;
       var words = FPSearch.wordsOf(q);
-      var scored = FPSearch.score(docs, q);
+      /* empty/short query + active filters = browse mode: every doc is a
+         candidate, ranked by sort mode instead of keyword score */
+      var scored = words.length ? FPSearch.score(docs, q)
+        : docs.map(function (d) { return {doc: d, score: 0}; });
       var ch = fCh.value, pb = fPb.value, mode = fSort.value;
       var filtered = scored.filter(function (r) {
         var d = r.doc;
@@ -124,11 +131,15 @@ document.addEventListener("DOMContentLoaded", function () {
         });
       }
       var top = filtered.slice(0, 40);
+      var browseMode = words.length === 0;
+      var label = browseMode ? "browsing with filters"
+        : 'for "' + q + '"';
       status.textContent = top.length
-        ? top.length + " result" + (top.length === 1 ? "" : "s") +
-          ' for "' + q + '"' +
+        ? top.length + " result" + (top.length === 1 ? "" : "s") + " " + label +
           (filtered.length > 40 ? " (showing top 40)" : "")
-        : 'No matches for "' + q + '" with these filters. Loosen a filter or try the technical name, slang ("rims"), or old-school term ("mags").';
+        : browseMode
+          ? "No matches with these filters. Loosen a filter to see more."
+          : 'No matches for "' + q + '" with these filters. Loosen a filter or try the technical name, slang ("rims"), or old-school term ("mags").';
       results.innerHTML = top.map(function (r) {
         return FPSearch.resultRow(r.doc, words);
       }).join("");
