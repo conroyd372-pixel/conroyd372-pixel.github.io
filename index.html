@@ -112,9 +112,35 @@
 
 <section class="block" style="padding-top:0"><div class="wrap" style="text-align:center">
 <h2 class="sec">Browse by your car</h2>
-<p class="sec-sub" style="margin-left:auto;margin-right:auto">Tap your chassis — every part that fits it, one tap away.</p>
+<p class="sec-sub" style="margin-left:auto;margin-right:auto">Pick your make and model — we show only parts tagged for your chassis. Always confirm fitment with the factory before you buy.</p>
+<div class="veh-picker" style="justify-content:center">
+<label>Make<select id="veh-make" class="filter-select"><option value="">Select make…</option><option value="BMW">BMW</option><option value="Chevrolet">Chevrolet</option><option value="Ford">Ford</option><option value="Infiniti">Infiniti</option><option value="Mercedes-Benz">Mercedes-Benz</option><option value="Nissan">Nissan</option><option value="Subaru">Subaru</option><option value="Volkswagen">Volkswagen</option></select></label>
+<label>Model<select id="veh-model" class="filter-select" disabled><option value="">Select model…</option></select></label>
+<button type="button" class="btn" id="veh-go" disabled>Show parts →</button>
+</div>
 <div class="chassis-row"><a class="chassis-chip" href="/search.html?ch=E92">E92<small>48</small></a><a class="chassis-chip" href="/search.html?ch=E90">E90<small>47</small></a><a class="chassis-chip" href="/search.html?ch=G80">G80<small>42</small></a><a class="chassis-chip" href="/search.html?ch=G82">G82<small>40</small></a><a class="chassis-chip" href="/search.html?ch=G20">G20<small>40</small></a><a class="chassis-chip" href="/search.html?ch=F30">F30<small>31</small></a><a class="chassis-chip" href="/search.html?ch=E93">E93<small>31</small></a><a class="chassis-chip" href="/search.html?ch=F80">F80<small>23</small></a></div>
 </div></section>
+<script>
+(function(){
+  var DATA = {"BMW": [{"c": "E92", "m": "3 Series Coupe (E92)", "y": "2007–2013", "n": 48}, {"c": "E90", "m": "3 Series Sedan (E90)", "y": "2006–2011", "n": 47}, {"c": "G80", "m": "M3 (G80)", "y": "2021+", "n": 42}, {"c": "G20", "m": "3 Series (G20)", "y": "2019+", "n": 40}, {"c": "G82", "m": "M4 Coupe (G82)", "y": "2021+", "n": 40}, {"c": "E93", "m": "3 Series Convertible (E93)", "y": "2007–2013", "n": 31}, {"c": "F30", "m": "3 Series (F30)", "y": "2012–2019", "n": 31}, {"c": "F80", "m": "M3 (F80)", "y": "2015–2018", "n": 23}, {"c": "F82", "m": "M4 Coupe (F82)", "y": "2015–2020", "n": 18}, {"c": "F10", "m": "5 Series (F10)", "y": "2011–2016", "n": 15}, {"c": "G30", "m": "5 Series (G30)", "y": "2017–2023", "n": 15}, {"c": "G83", "m": "M4 Convertible (G83)", "y": "2021+", "n": 14}, {"c": "G22", "m": "4 Series Coupe (G22)", "y": "2021+", "n": 13}, {"c": "F32", "m": "4 Series Coupe (F32)", "y": "2014–2020", "n": 12}, {"c": "G87", "m": "M2 (G87)", "y": "2023+", "n": 12}, {"c": "E46", "m": "3 Series (E46)", "y": "1999–2006", "n": 11}, {"c": "F36", "m": "4 Series Gran Coupe (F36)", "y": "2015–2020", "n": 10}, {"c": "G42", "m": "2 Series Coupe (G42)", "y": "2022+", "n": 9}, {"c": "F33", "m": "4 Series Convertible (F33)", "y": "2014–2020", "n": 8}, {"c": "F85", "m": "X5 M (F85)", "y": "2015–2018", "n": 7}, {"c": "F83", "m": "M4 Convertible (F83)", "y": "2015–2020", "n": 6}, {"c": "E36", "m": "3 Series (E36)", "y": "1992–1999", "n": 5}, {"c": "E60", "m": "5 Series (E60)", "y": "2004–2010", "n": 5}, {"c": "G26", "m": "4 Series Gran Coupe (G26)", "y": "2022+", "n": 5}, {"c": "E82", "m": "1 Series Coupe (E82)", "y": "2008–2013", "n": 4}, {"c": "F90", "m": "M5 (F90)", "y": "2018–2023", "n": 4}], "Nissan": [{"c": "370Z", "m": "370Z (Z34)", "y": "2009–2020", "n": 14}, {"c": "350Z", "m": "350Z (Z33)", "y": "2003–2008", "n": 6}], "Infiniti": [{"c": "Q50", "m": "Q50", "y": "2014+", "n": 9}, {"c": "Q60", "m": "Q60", "y": "2017–2022", "n": 5}], "Ford": [{"c": "S650", "m": "Mustang (S650)", "y": "2024+", "n": 5}], "Chevrolet": [{"c": "Z06", "m": "Corvette Z06 (C8)", "y": "2023+", "n": 10}], "Mercedes-Benz": [{"c": "W167", "m": "GLE (W167)", "y": "2020+", "n": 4}, {"c": "W205", "m": "C-Class (W205)", "y": "2015–2021", "n": 2}], "Subaru": [{"c": "WRX", "m": "WRX / WRX STI", "y": "2015+", "n": 4}], "Volkswagen": [{"c": "MK7", "m": "Golf GTI (Mk7)", "y": "2015–2021", "n": 2}]};
+  var makeSel = document.getElementById('veh-make');
+  var modelSel = document.getElementById('veh-model');
+  var goBtn = document.getElementById('veh-go');
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+  makeSel.addEventListener('change', function(){
+    var models = DATA[makeSel.value] || [];
+    modelSel.innerHTML = '<option value="">Select model…</option>' + models.map(function(d){
+      return '<option value="' + esc(d.c) + '">' + esc(d.m) + ' ' + esc(d.y) + ' (' + d.n + ')</option>';
+    }).join('');
+    modelSel.disabled = !models.length;
+    goBtn.disabled = true;
+  });
+  modelSel.addEventListener('change', function(){ goBtn.disabled = !modelSel.value; });
+  goBtn.addEventListener('click', function(){
+    if (modelSel.value) window.location.href = '/search.html?ch=' + encodeURIComponent(modelSel.value);
+  });
+})();
+</script>
 <section class="block" style="padding-top:8px"><div class="wrap">
 <div class="sec-head"><h2 class="sec">Winning right now</h2><a class="more" href="/search.html">Shop all →</a></div>
 <p class="sec-sub">The parts buyers are actually ordering — ranked by real transaction counts and research-flagged winners.</p>
@@ -265,7 +291,7 @@
 </div>
 </article>
 
-<article class="prod-card" data-name="2014-2017 mk7 volkswagen golf r/r-line carbon fiber rear bumper diffuser lip | rear valance &amp; diffuser 2014-2017 mk7 volkswagen golf r/r-line carbon fiber rear bumper diffuser lip | rear valance &amp; diffuser jc sportline auto parts co., ltd.  " data-price-min="279" data-rating="4.8" data-reviews="0" data-cat="carbon" data-band="100-300" data-chassis="">
+<article class="prod-card" data-name="2014-2017 mk7 volkswagen golf r/r-line carbon fiber rear bumper diffuser lip | rear valance &amp; diffuser 2014-2017 mk7 volkswagen golf r/r-line carbon fiber rear bumper diffuser lip | rear valance &amp; diffuser jc sportline auto parts co., ltd.  mk7" data-price-min="279" data-rating="4.8" data-reviews="0" data-cat="carbon" data-band="100-300" data-chassis="MK7">
 <a class="pimg" href="/carbon/2014-2017-mk7-volkswagen-golf-r-r-line-carbon-fiber-rear-bum.html"><span class="win-badge">Winning</span><img src="/assets/img/products/2014-2017-mk7-volkswagen-golf-r-r-line-carbon-fiber-rear-bum/g3.jpg" alt="2014-2017 MK7 Volkswagen Golf R/R-Line Carbon Fiber Rear Bumper Diffuser Lip | Rear Valance &amp; Diffuser" loading="lazy"></a>
 <div class="body">
 <h3><a href="/carbon/2014-2017-mk7-volkswagen-golf-r-r-line-carbon-fiber-rear-bum.html">2014-2017 MK7 Volkswagen Golf R/R-Line Carbon Fiber Rear Bumper Diffuser Lip | Rear Valance &amp; Diffuser</a></h3>

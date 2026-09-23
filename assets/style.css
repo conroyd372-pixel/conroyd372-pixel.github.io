@@ -183,6 +183,27 @@ filter:drop-shadow(0 14px 20px rgba(0,0,0,.50)) drop-shadow(0 4px 8px rgba(0,0,0
 .bp-src{font-size:.76rem;color:var(--muted2);margin-left:8px}
 .price-xl{font-size:1.8rem;font-weight:800;color:var(--gold);margin:12px 0 2px;letter-spacing:-.02em}
 .price-sub{font-size:.84rem;color:var(--muted)}
+/* factory vs US price comparison — top of buy panel */
+.price-compare{margin:10px 0 4px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.02)}
+.pc-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:5px 0;font-size:.92rem}
+.pc-row s{color:var(--muted);font-size:1.05rem}
+.pc-factory b{color:var(--gold);font-size:1.25rem}
+.pc-save{margin-top:8px;padding:8px 10px;border-radius:8px;background:rgba(46,204,113,.12);color:#7bed9f;font-weight:700;font-size:.95rem;text-align:center}
+.pc-why{display:block;margin-top:8px;font-size:.82rem;color:var(--muted)}
+.pc-edu{font-size:.88rem;color:var(--muted)}
+/* trust strip under buy panel */
+.trust-strip{display:flex;flex-wrap:wrap;gap:8px 16px;margin:14px 0 0;padding:10px 12px;border:1px dashed var(--line);border-radius:10px;font-size:.82rem;color:var(--muted)}
+.trust-strip b{color:var(--text)}
+/* sticky mobile buy bar */
+.sticky-buy{position:fixed;left:0;right:0;bottom:0;z-index:60;display:none;align-items:center;gap:10px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:rgba(10,10,12,.96);border-top:1px solid var(--line);backdrop-filter:blur(8px)}
+.sticky-buy .sp{flex:1;min-width:0;font-size:.82rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sticky-buy .sp b{display:block;color:var(--gold);font-size:1rem}
+.sticky-buy .btn{flex-shrink:0;padding:10px 16px}
+@media(max-width:760px){.sticky-buy{display:flex}body{padding-bottom:76px}}
+/* vehicle picker */
+.veh-picker{display:flex;flex-wrap:wrap;gap:10px;align-items:end;margin:14px 0}
+.veh-picker label{display:flex;flex-direction:column;gap:6px;font-size:.82rem;color:var(--muted)}
+.veh-picker select{min-width:170px}
 .facts{margin:14px 0 0}
 .fact-row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid var(--line);font-size:.92rem}
 .fact-row dt{color:var(--muted);flex-shrink:0}
