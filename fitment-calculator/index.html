@@ -26,32 +26,52 @@
 <header class="site"><div class="wrap nav">
 <a class="logo" href="/"><b>FACTORY</b>&nbsp;PLUG</a>
 <nav>
-<a href="/wheels/">Wheels</a><a href="/brakes/">Brakes</a><a href="/exhaust/">Exhaust</a><a href="/carbon/">Carbon</a><a href="/manufacturers/">🏭 Who Makes What</a><a href="/guides/">📚 Guides</a><a href="/search.html" class="search-link">🔍 Search</a><a href="/disclosure.html">Disclosure</a>
+<a href="/wheels/">Wheels</a><a href="/brakes/">Brakes</a><a href="/exhaust/">Exhaust</a><a href="/carbon/">Carbon</a><a href="/manufacturers/">Who Makes What</a><a href="/guides/">Guides</a><a href="/search.html" class="search-link">Search</a><a href="/disclosure.html">Disclosure</a>
 </nav>
 </div></header>
-<div class="wrap"><div class="crumbs"><a href="/">Home</a> / <a href="/guides/">Guides</a> / Tire Size Calculator</div></div>
+<div class="wrap"><nav aria-label="Breadcrumb"><ol class="crumbs">
+<li><a href="/">Home</a></li>
+<li><a href="/guides/">Guides</a></li>
+<li aria-current="page">Tire Size Calculator</li>
+</ol></nav></div>
+<article itemscope itemtype="https://schema.org/TechArticle">
 <section class="block" style="padding-top:14px"><div class="wrap">
 <div class="prose" style="padding-bottom:6px">
-<h1>🛞 Tire Size Calculator</h1>
+<header>
+<h1 itemprop="headline">Tire Size Calculator</h1>
 <p class="sec-sub">Compare any two tire sizes in seconds. Enter your <b>current</b> size and the <b>new</b> size you're considering — we'll show the diameter difference, speedometer error, and a straight verdict.</p>
+<p class="direct-answer">Tire size 225/45R17 reads as 225 millimeters of tread width, a 45% sidewall aspect ratio, radial construction, and a 17-inch rim. Overall diameter is (width × aspect ratio ÷ 100 × 2 ÷ 25.4) + rim diameter — about 25 inches here. Stay within 3% of your stock diameter and your speedometer, gearing, and clearances all behave.</p>
+</header>
 </div>
-<div class="calc" style="max-width:760px">
+<fieldset class="calc" style="max-width:760px;border:0;padding:0;margin:0">
+<legend class="sr-only">Enter two tire sizes to compare</legend>
 <div class="calc-row">
 <div><label for="cur">Current tire size</label><input id="cur" value="225/45R17" maxlength="12" inputmode="text" autocomplete="off"><div class="calc-hint">On your door jamb sticker, e.g. 225/45R17</div></div>
 <div><label for="new">New tire size</label><input id="new" value="225/40R18" maxlength="12" inputmode="text" autocomplete="off"><div class="calc-hint">The setup you're considering</div></div>
 </div>
 <div class="btn-row" style="margin-top:16px"><button class="btn" id="calcBtn" type="button">Compare sizes</button></div>
-<div class="calc-result" id="calcOut" role="status"></div>
-</div>
+<div class="calc-result" id="calcOut" role="status" aria-live="polite"></div>
+</fieldset>
 <div class="prose">
-<h2>How to read the result</h2>
-<p><b>Within 3%:</b> safe zone — speedometer stays accurate, clearances behave like stock. <b>3–5%:</b> check clearances carefully and expect a small speedometer error. <b>Over 5%:</b> too far — gearing, speedometer, and ABS behavior all shift, and rubbing risk climbs.</p>
-<h2>The math behind it</h2>
+<section aria-labelledby="read-result-h">
+<h2 id="read-result-h">How to read the result</h2>
+<dl class="verdicts">
+<dt>Within 3%</dt><dd>Safe zone — speedometer stays accurate, clearances behave like stock.</dd>
+<dt>3–5%</dt><dd>Check clearances carefully and expect a small speedometer error.</dd>
+<dt>Over 5%</dt><dd>Too far — gearing, speedometer, and ABS behavior all shift, and rubbing risk climbs.</dd>
+</dl>
+</section>
+<section aria-labelledby="tire-math-h">
+<h2 id="tire-math-h">The math behind it</h2>
 <p>Overall diameter = (width × aspect ratio ÷ 100 × 2 ÷ 25.4) + rim diameter. The percentage difference between old and new is what your speedometer feels: a new tire 3% taller means your speedo reads about 3% slow at any speed.</p>
+</section>
+<aside aria-label="Related fitment guides">
 <h2>Want the full picture?</h2>
 <p>Diameter is only half the fitment story. Read <a href="/guides/wheel-fitment-101.html">Wheel Fitment 101</a> for bolt pattern, offset, and center bore, <a href="/guides/tire-size-for-your-wheel-width.html">the tire width chart</a> to match rubber to rim, and <a href="/guides/how-to-pick-the-perfect-wheel-size.html">how to pick the perfect wheel size</a> before you buy. Then confirm everything against your VIN with the seller.</p>
+</aside>
 </div>
 </div></section>
+</article>
 <script>
 (function(){
 function parse(s){
@@ -90,15 +110,15 @@ run();
 })();
 </script>
 <footer class="site"><div class="wrap"><div class="cols">
-<div><b style="color:var(--text)">FACTORYPLUG</b><br>Factory-direct car parts.<br>Without the dealer markup.</div>
-<div><b style="color:var(--text)">Shop</b><br>
+<div><b style="color:var(--text)">FACTORYPLUG</b><br>An automotive supply-chain intelligence directory.<br>No inventory. No checkout. No middlemen.</div>
+<div><b style="color:var(--text)">Catalog</b><br>
 <a href="/wheels/">Forged Wheels</a><br><a href="/brakes/">Brakes</a><br><a href="/exhaust/">Exhaust</a><br><a href="/carbon/">Carbon &amp; Body</a></div>
 <div><b style="color:var(--text)">More</b><br>
-<a href="/manufacturers/">🏭 Who Makes What</a><br><a href="/suspension/">Suspension</a><br><a href="/engine/">Engine &amp; Fueling</a><br><a href="/interior/">Interior</a><br><a href="/lighting/">Lighting</a></div>
+<a href="/manufacturers/">Who Makes What</a><br><a href="/suspension/">Suspension</a><br><a href="/engine/">Engine &amp; Fueling</a><br><a href="/interior/">Interior</a><br><a href="/lighting/">Lighting</a></div>
 <div><b style="color:var(--text)">Trust</b><br>
 <a href="/disclosure.html">Affiliate Disclosure</a><br><a href="/privacy.html">Privacy Policy</a><br><a href="/terms.html">Terms of Service</a><br><a href="/contact.html">Contact</a><br><a href="https://partsplugvault.store/parts">Parts Plug Vault 🔌</a></div>
 </div>
-<small>As an affiliate, we may earn a commission when you buy through links on this site, at no extra cost to you. Fitment is never guaranteed — always confirm year, model, trim and VIN with the seller before buying.<br>
+<small>As an affiliate, we may earn a commission when you buy through links on this site, at no extra cost to you. Fitment is never guaranteed — always confirm year, model, trim and VIN directly with the factory contact before buying.<br>
 Free sourcing by <b style="color:var(--gold)">RoyblingE90</b> 🔌<br>
 &copy; 2026 FactoryPlug. All rights reserved.</small>
 </div></footer>
