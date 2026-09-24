@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BMW 3 Series Touring (E91) Parts (2006–2012) — 21 Parts | FactoryPlug</title>
+<meta name="description" content="Every BMW 3 Series Touring (E91) (2006–2012) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
+
+<link rel="canonical" href="https://conroyd372-pixel.github.io/garage/e91/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FactoryPlug">
+<meta property="og:title" content="BMW 3 Series Touring (E91) Parts (2006–2012) — 21 Parts | FactoryPlug">
+<meta property="og:description" content="Every BMW 3 Series Touring (E91) (2006–2012) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
+<meta property="og:url" content="https://conroyd372-pixel.github.io/garage/e91/">
+<meta property="og:image" content="https://conroyd372-pixel.github.io/assets/img/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="BMW 3 Series Touring (E91) Parts (2006–2012) — 21 Parts | FactoryPlug">
+<meta name="twitter:description" content="Every BMW 3 Series Touring (E91) (2006–2012) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
+<meta name="twitter:image" content="https://conroyd372-pixel.github.io/assets/img/og-default.png">
+<link rel="stylesheet" href="/assets/style.css">
+<script src="/assets/fx.js" defer></script>
+<script src="/assets/search.js" defer></script>
+<script>
+/* My Garage: Year -> Make -> Model -> Chassis picker + "Everything for your
+   X" client-side results, persisted in localStorage (key fp_garage_v1).
+   All picker options derive from /garage/vehicles.json, which is built from
+   the catalog's own chassis detections — never hand-typed. Used on /garage/
+   (picker + results + indicator) and vehicle pages (indicator only). */
+(function(){
+  var KEY = 'fp_garage_v1';
+  var CATALOG_URL = '/garage/catalog.json';
+  var VEHICLES_URL = '/garage/vehicles.json';
+  function load(){ try { return JSON.parse(localStorage.getItem(KEY)); } catch(e){ return null; } }
+  function save(v){ try { localStorage.setItem(KEY, JSON.stringify(v)); } catch(e){} }
+  function clear(){ try { localStorage.removeItem(KEY); } catch(e){} }
+  function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  /* ---- saved-garage indicator: "Shopping for: F80 M3" + change/clear ---- */
+  var ind = document.getElementById('garage-indicator');
+  var g = load();
+  if (g && g.code && ind) {
+    ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
+      esc(g.label || g.code) + '</b> <a href="/garage/">✎ change</a> ' +
+      '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+    ind.classList.remove('hidden');
+    var c = document.getElementById('garage-clear');
+    if (c) c.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
+  }
+
+  /* ---- picker (hub page only) ---- */
+  var yearSel = document.getElementById('garage-year');
+  var makeSel = document.getElementById('garage-make');
+  var modelSel = document.getElementById('garage-model');
+  var chassisSel = document.getElementById('garage-chassis');
+  var goBtn = document.getElementById('garage-go');
+  var results = document.getElementById('garage-results');
+  if (!yearSel || !makeSel || !modelSel || !chassisSel) {
+    return; /* vehicle landing pages: indicator only */
+  }
+  function resetSel(sel, label){
+    sel.innerHTML = '<option value="">' + label + '</option>';
+    sel.disabled = true;
+  }
+  function covers(v, y){ return v.y0 != null && v.y1 != null && y >= v.y0 && y <= v.y1; }
+
+  fetch(VEHICLES_URL).then(function(r){ return r.json(); }).then(function(data){
+    var codes = Object.keys(data).filter(function(code){
+      var v = data[code]; return v.y0 != null && v.y1 != null;
+    });
+    if (!codes.length) return;
+    var minY = Math.min.apply(null, codes.map(function(c){ return data[c].y0; }));
+    var maxY = Math.max.apply(null, codes.map(function(c){ return data[c].y1; }));
+    for (var y = maxY; y >= minY; y--) {
+      var o = document.createElement('option');
+      o.value = y; o.textContent = y;
+      yearSel.appendChild(o);
+    }
+    function makesFor(year){
+      var seen = {};
+      codes.forEach(function(code){
+        if (covers(data[code], year)) seen[data[code].make] = true;
+      });
+      return Object.keys(seen).sort();
+    }
+    function modelsFor(year, make){
+      var seen = {};
+      codes.forEach(function(code){
+        var v = data[code];
+        if (v.make === make && covers(v, year)) seen[v.model] = true;
+      });
+      return Object.keys(seen).sort();
+    }
+    function chassisFor(year, make, model){
+      return codes.filter(function(code){
+        var v = data[code];
+        return v.make === make && v.model === model && covers(v, year);
+      }).sort(function(a, b){ return data[b].count - data[a].count; });
+    }
+    yearSel.addEventListener('change', function(){
+      var year = parseInt(yearSel.value, 10);
+      resetSel(makeSel, 'Select make…'); resetSel(modelSel, 'Select model…');
+      resetSel(chassisSel, 'Select chassis…');
+      if (goBtn) goBtn.disabled = true;
+      if (!year) return;
+      makesFor(year).forEach(function(m){
+        var o = document.createElement('option');
+        o.value = m; o.textContent = m;
+        makeSel.appendChild(o);
+      });
+      makeSel.disabled = false;
+    });
+    makeSel.addEventListener('change', function(){
+      var year = parseInt(yearSel.value, 10);
+      resetSel(modelSel, 'Select model…'); resetSel(chassisSel, 'Select chassis…');
+      if (goBtn) goBtn.disabled = true;
+      if (!makeSel.value) return;
+      modelsFor(year, makeSel.value).forEach(function(m){
+        var o = document.createElement('option');
+        o.value = m; o.textContent = m;
+        modelSel.appendChild(o);
+      });
+      modelSel.disabled = false;
+    });
+    modelSel.addEventListener('change', function(){
+      var year = parseInt(yearSel.value, 10);
+      resetSel(chassisSel, 'Select chassis…');
+      if (goBtn) goBtn.disabled = true;
+      if (!modelSel.value) return;
+      chassisFor(year, makeSel.value, modelSel.value).forEach(function(code){
+        var v = data[code];
+        var o = document.createElement('option');
+        o.value = code;
+        o.textContent = code + ' — ' + v.years + ' (' + v.count + ' parts)';
+        chassisSel.appendChild(o);
+      });
+      chassisSel.disabled = false;
+    });
+    chassisSel.addEventListener('change', function(){
+      if (goBtn) goBtn.disabled = !chassisSel.value;
+    });
+    if (goBtn) goBtn.addEventListener('click', function(){
+      var code = chassisSel.value;
+      if (!code || !data[code]) return;
+      var v = data[code];
+      var label = code + ' ' + v.model;
+      save({ code: code, make: v.make, label: label });
+      g = load();
+      if (ind) {
+        ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
+          esc(label) + '</b> <a href="/garage/">✎ change</a> ' +
+          '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+        ind.classList.remove('hidden');
+        var cc = document.getElementById('garage-clear');
+        if (cc) cc.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
+      }
+      renderResults(code, data);
+      if (results && results.scrollIntoView) results.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+
+    /* Saved garage? show its parts right away. */
+    if (g && g.code && data[g.code] && results) renderResults(g.code, data);
+  }).catch(function(){ /* picker degrades silently; browse grid still works */ });
+
+  /* ---- "Everything for your X", grouped by category, from catalog.json ---- */
+  var catalogCache = null;
+  function getCatalog(cb){
+    if (catalogCache) { cb(catalogCache); return; }
+    fetch(CATALOG_URL).then(function(r){ return r.json(); }).then(function(j){
+      catalogCache = j; cb(j);
+    }).catch(function(){ cb(null); });
+  }
+  function card(p){
+    return '<a class="gcard" href="' + esc(p.url) + '">' +
+      '<img src="' + esc(p.image) + '" alt="' + esc(p.title) + '" loading="lazy">' +
+      '<span class="gcard-body"><span class="gcard-title">' + esc(p.title) + '</span>' +
+      '<span class="gcard-link">View part →</span></span></a>';
+  }
+  function renderResults(code, vdata){
+    if (!results) return;
+    var v = vdata[code];
+    results.innerHTML = '<p class="garage-loading">Pulling every part for your ' +
+      esc(code) + '…</p>';
+    getCatalog(function(cat){
+      if (!cat || !v) {
+        results.innerHTML = '<p class="garage-loading">Could not load the parts index — ' +
+          '<a href="' + esc(v ? v.url : '/garage/') + '">open the ' + esc(code) +
+          ' garage page →</a></p>';
+        return;
+      }
+      var items = cat.filter(function(p){
+        return p.chassis && p.chassis.indexOf(code) !== -1;
+      });
+      var order = (typeof FP_CAT_ORDER !== 'undefined') ? FP_CAT_ORDER : [];
+      var titles = (typeof FP_CAT_TITLES !== 'undefined') ? FP_CAT_TITLES : {};
+      var groups = {};
+      items.forEach(function(p){
+        (groups[p.category] = groups[p.category] || []).push(p);
+      });
+      var html = '<div class="res-head"><h2 class="sec">Everything for your ' +
+        esc(code) + '</h2><a class="btn ghost" href="' + esc(v.url) +
+        '">Full ' + esc(code) + ' page →</a></div>' +
+        '<p class="res-sub">' + items.length + ' parts that fit the ' +
+        esc(v.make + ' ' + v.model) + ' (' + esc(v.years) +
+        ') — grouped by category. Only catalog parts with detected ' +
+        esc(code) + ' fitment are shown.</p>';
+      var seenCats = {};
+      order.forEach(function(slug){
+        if (groups[slug]) { seenCats[slug] = true; html += groupHtml(slug, groups[slug], titles); }
+      });
+      Object.keys(groups).sort().forEach(function(slug){
+        if (!seenCats[slug]) html += groupHtml(slug, groups[slug], titles);
+      });
+      if (!items.length) {
+        html += '<p class="garage-loading">No parts tagged for ' + esc(code) +
+          ' yet — try the browse grid below.</p>';
+      }
+      html += '<p class="fine">Fitment is never guaranteed — always confirm year, ' +
+        'model, trim and VIN directly with the supplier contact before buying.</p>';
+      results.innerHTML = html;
+    });
+  }
+  function groupHtml(slug, items, titles){
+    var title = titles[slug] || slug;
+    var cards = items.map(card).join('');
+    return '<div class="res-head"><h2 class="sec">' + esc(title) +
+      ' (' + items.length + ')</h2></div>' +
+      '<div class="gcard-grid">' + cards + '</div>';
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "BMW 3 Series Touring (E91) Parts (2006\u20132012)", "description": "Every BMW 3 Series Touring (E91) compatible part in the FactoryPlug catalog."}</script>
+</head>
+<body>
+<header class="site"><div class="wrap nav">
+<a class="logo" href="/"><b>FACTORY</b>&nbsp;PLUG</a>
+<nav>
+<a href="/wheels/">Wheels</a><a href="/brakes/">Brakes & Rotors</a><a href="/exhaust/">Exhaust</a><a href="/carbon/">Aero & Exterior</a><a href="/manufacturers/">Who Makes What</a><a href="/just-dropped.html">Just Dropped 🔌</a><a href="/guides/">Guides</a><a href="/garage/">🚗 My Garage</a><a href="/search.html" class="search-link">Search</a><a href="/guides/member-perks.html">Member Perks</a><a href="/disclosure.html">Disclosure</a>
+</nav>
+</div></header>
+<section class="content-sec"><div class="wrap-narrow">
+<div id="garage-indicator" class="garage-indicator hidden" role="status"></div>
+<nav aria-label="Breadcrumb"><ol class="crumbs">
+<li><a href="/">Home</a></li><li><a href="/garage/">My Garage</a></li>
+<li aria-current="page">E91</li></ol></nav>
+<h1>BMW 3 Series Touring (E91) Parts <span class="yr">(2006–2012)</span></h1>
+<p class="sec-sub">Everything in the catalog for your E91 — grouped by
+category. 21 parts and counting.</p>
+<p class="fine">Fitment is never guaranteed — always confirm year, model, trim
+and VIN directly with the supplier contact before buying.</p>
+</div></section>
+<section class="content-sec" style="max-width:none">
+<div class="sec-head"><h2 class="sec">Exhaust Systems (1)</h2></div><div class="prod-grid"><article class="prod-card" data-name="bmw e90 e91 e92 135i 335i 535i x5 x6 n54 n55 engine aluminum throttle body 6 injetor intake bmw e90 e91 e92 135i 335i 535i x5 x6 n54 n55 engine aluminum throttle body 6 injetor intake see listing  e90 e91 e92" data-price-min="" data-rating="" data-reviews="0" data-cat="exhaust" data-band="" data-chassis="E90 E91 E92" data-material="">
+<a class="pimg" href="/exhaust/bmw-e90-e91-e92-135i-335i-535i-x5-x6-n54-n55-engine-aluminum.html"><img src="/assets/img/products/bmw-e90-e91-e92-135i-335i-535i-x5-x6-n54-n55-engine-aluminum/hero.webp" alt="Bmw E90 E91 E92 135i 335i 535i X5 X6 N54 N55 Engine Aluminum Throttle Body 6 Injetor Intake" loading="lazy"></a>
+<div class="body">
+<h3><a href="/exhaust/bmw-e90-e91-e92-135i-335i-535i-x5-x6-n54-n55-engine-aluminum.html">Bmw E90 E91 E92 135i 335i 535i X5 X6 N54 N55 Engine Aluminum Throttle Body 6 Injetor Intake</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier">Made by See listing</div>
+<div class="foot"><a class="btn deal" href="/exhaust/bmw-e90-e91-e92-135i-335i-535i-x5-x6-n54-n55-engine-aluminum.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Aerodynamics &amp; Exterior (1)</h2></div><div class="prod-grid"><article class="prod-card" data-name="m style m look dry carbon fiber for bmw e81 e82 e87 e88 e90 e91 e92 e93 2004-2009 mirror cover m style m look dry carbon fiber for bmw e81 e82 e87 e88 e90 e91 e92 e93 2004-2009 mirror cover see listing  e82 e87 e88 e90 e91 e92 e93" data-price-min="" data-rating="" data-reviews="0" data-cat="carbon" data-band="" data-chassis="E82 E87 E88 E90 E91 E92 E93" data-material="Carbon fiber">
+<a class="pimg" href="/carbon/m-style-m-look-dry-carbon-fiber-for-bmw-e81-e82-e87-e88-e90.html"><img src="/assets/img/products/m-style-m-look-dry-carbon-fiber-for-bmw-e81-e82-e87-e88-e90/hero.webp" alt="M Style M Look Dry Carbon Fiber For Bmw E81 E82 E87 E88 E90 E91 E92 E93 2004-2009 Mirror Cover" loading="lazy"></a>
+<div class="body">
+<h3><a href="/carbon/m-style-m-look-dry-carbon-fiber-for-bmw-e81-e82-e87-e88-e90.html">M Style M Look Dry Carbon Fiber For Bmw E81 E82 E87 E88 E90 E91 E92 E93 2004-2009 Mirror Cover</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier">Made by See listing</div>
+<div class="foot"><a class="btn deal" href="/carbon/m-style-m-look-dry-carbon-fiber-for-bmw-e81-e82-e87-e88-e90.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Lighting (5)</h2></div><div class="prod-grid"><article class="prod-card" data-name="rgb color led headlight for bmw 3series e90 e91 2009-2012 front lights turn signal lamp rgb color led headlight for bmw 3series e90 e91 2009-2012 front lights turn signal lamp ruian caopao electronic commerce co., ltd.  e90 e91" data-price-min="580" data-rating="4.9" data-reviews="0" data-cat="lighting" data-band="300-600" data-chassis="E90 E91" data-material="">
+<a class="pimg" href="/lighting/rgb-color-led-headlight-for-bmw-3series-e90-e91-2009-2012-fr.html"><img src="not captured — resolve on live listing" alt="RGB Color LED Headlight for BMW 3Series E90 E91 2009-2012 Front Lights Turn Signal Lamp" loading="lazy"></a>
+<div class="body">
+<h3><a href="/lighting/rgb-color-led-headlight-for-bmw-3series-e90-e91-2009-2012-fr.html">RGB Color LED Headlight for BMW 3Series E90 E91 2009-2012 Front Lights Turn Signal Lamp</a></h3>
+<div class="price"><span class="conv-price" data-min="580" data-max="600" data-cur="USD" data-orig="$580-600">$580-600</span></div>
+<div class="meta-row"><span class="chip">MOQ: 1 set</span><span class="chip hot">5 sold</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="4.9 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:98%">★★★★★</span></span> · Made by Ruian Caopao Electronic Commerce Co., Ltd. · <b>4.9</b> · 5 transactions</div>
+<div class="foot"><a class="btn deal" href="/lighting/rgb-color-led-headlight-for-bmw-3series-e90-e91-2009-2012-fr.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="for bmw e90 e91 original headlight 2005 2006 2007 2008 headlamp afs xenon lamp bmw 3 series 320i 325i 335i 330i e91 car light for bmw e90 e91 original headlight 2005 2006 2007 2008 headlamp afs xenon lamp bmw 3 series 320i 325i 335i 330i e91 car light guangzhou chuangyou auto parts co., ltd.  e90 e91" data-price-min="135" data-rating="4.8" data-reviews="0" data-cat="lighting" data-band="100-300" data-chassis="E90 E91" data-material="">
+<a class="pimg" href="/lighting/for-bmw-e90-e91-original-headlight-2005-2006-2007-2008-headl.html"><img src="https://s.alicdn.com/@sc04/kf/H71f8fc734b0845be82252d2162b1e03av.png (Product Image 1 from Alibaba render for this listing)" alt="For BMW E90 E91 Original Headlight 2005 2006 2007 2008 Headlamp AFS Xenon Lamp BMW 3 Series 320i 325i 335i 330i E91 Car Light" loading="lazy"></a>
+<div class="body">
+<h3><a href="/lighting/for-bmw-e90-e91-original-headlight-2005-2006-2007-2008-headl.html">For BMW E90 E91 Original Headlight 2005 2006 2007 2008 Headlamp AFS Xenon Lamp BMW 3 Series 320i 325i 335i 330i E91 Car Light</a></h3>
+<div class="price"><span class="conv-price" data-min="135" data-max="280" data-cur="USD" data-orig="$135-150 (alt render $145-280)">$135-150 (alt render $145-280)</span></div>
+<div class="meta-row"><span class="chip">MOQ: 1 piece</span><span class="chip hot">3 sold</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="4.8 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:96%">★★★★★</span></span> · Made by Guangzhou Chuangyou Auto Parts Co., Ltd. · <b>4.8</b> · 3 transactions</div>
+<div class="foot"><a class="btn deal" href="/lighting/for-bmw-e90-e91-original-headlight-2005-2006-2007-2008-headl.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="2005-2012 e90/e91 bmw 3 series/m3 snake-eye led headlights - yellow drl | e90 headlights &amp; angel eyes 2005-2012 e90/e91 bmw 3 series/m3 snake-eye led headlights - yellow drl | e90 headlights &amp; angel eyes sjc auto  e90 e91" data-price-min="300" data-rating="4.4" data-reviews="0" data-cat="lighting" data-band="300-600" data-chassis="E90 E91" data-material="">
+<a class="pimg" href="/lighting/2005-2012-e90-e91-bmw-3-series-m3-snake-eye-led-headlights-y.html"><img src="/assets/img/products/2005-2012-e90-e91-bmw-3-series-m3-snake-eye-led-headlights-y/hero.jpg" alt="2005-2012 E90/E91 BMW 3 Series/M3 Snake-Eye LED Headlights - Yellow DRL | E90 Headlights &amp; Angel Eyes" loading="lazy"></a>
+<div class="body">
+<h3><a href="/lighting/2005-2012-e90-e91-bmw-3-series-m3-snake-eye-led-headlights-y.html">2005-2012 E90/E91 BMW 3 Series/M3 Snake-Eye LED Headlights - Yellow DRL | E90 Headlights &amp; Angel Eyes</a></h3>
+<div class="price"><span class="conv-price" data-min="300" data-max="300" data-cur="USD" data-orig="$300">$300</span></div>
+<div class="meta-row"><span class="chip">MOQ: 1</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="4.4 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:88%">★★★★★</span></span> · Made by <a href="/manufacturers/guangzhou-meishi-electronic-technology-co-ltd.html">SJC Auto</a> · <b>4.4</b></div>
+<div class="foot"><a class="btn deal" href="/lighting/2005-2012-e90-e91-bmw-3-series-m3-snake-eye-led-headlights-y.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="for bmw 3 series e90 headlight 2009-2012 bmw 3 series 316i 330 320 318i e91 325m m3 left and right original xenon headlamp for bmw 3 series e90 headlight 2009-2012 bmw 3 series 316i 330 320 318i e91 325m m3 left and right original xenon headlamp supplier not shown in this render — verify live  e90 e91" data-price-min="130" data-rating="" data-reviews="0" data-cat="lighting" data-band="100-300" data-chassis="E90 E91" data-material="">
+<a class="pimg" href="/lighting/for-bmw-3-series-e90-headlight-2009-2012-bmw-3-series-316i-3.html"><img src="not captured — resolve on live listing" alt="For BMW 3 Series E90 Headlight 2009-2012 BMW 3 Series 316i 330 320 318i E91 325M M3 Left and Right Original Xenon Headlamp" loading="lazy"></a>
+<div class="body">
+<h3><a href="/lighting/for-bmw-3-series-e90-headlight-2009-2012-bmw-3-series-316i-3.html">For BMW 3 Series E90 Headlight 2009-2012 BMW 3 Series 316i 330 320 318i E91 325M M3 Left and Right Original Xenon Headlamp</a></h3>
+<div class="price"><span class="conv-price" data-min="130" data-max="150" data-cur="USD" data-orig="$130-150">$130-150</span></div>
+<div class="meta-row"><span class="chip">MOQ: 1</span></div>
+<div class="psupplier">Made by supplier not shown in this render — verify live</div>
+<div class="foot"><a class="btn deal" href="/lighting/for-bmw-3-series-e90-headlight-2009-2012-bmw-3-series-316i-3.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="for bmw e90 e91 original headlight 2009 2010 2011 2012 hid headlamp xenon lamp bmw 3 series 320i 325i 335i 330i e91 car light for bmw e90 e91 original headlight 2009 2010 2011 2012 hid headlamp xenon lamp bmw 3 series 320i 325i 335i 330i e91 car light guangzhou chuangyou auto parts co., ltd.  e90 e91" data-price-min="105" data-rating="4.8" data-reviews="0" data-cat="lighting" data-band="100-300" data-chassis="E90 E91" data-material="">
+<a class="pimg" href="/lighting/for-bmw-e90-e91-original-headlight-2009-2010-2011-2012-hid-h.html"><img src="not captured — resolve on live listing" alt="For BMW E90 E91 Original Headlight 2009 2010 2011 2012 HID Headlamp Xenon Lamp BMW 3 Series 320i 325i 335i 330i E91 Car Light" loading="lazy"></a>
+<div class="body">
+<h3><a href="/lighting/for-bmw-e90-e91-original-headlight-2009-2010-2011-2012-hid-h.html">For BMW E90 E91 Original Headlight 2009 2010 2011 2012 HID Headlamp Xenon Lamp BMW 3 Series 320i 325i 335i 330i E91 Car Light</a></h3>
+<div class="price"><span class="conv-price" data-min="105" data-max="130" data-cur="USD" data-orig="$105-130">$105-130</span></div>
+<div class="meta-row"><span class="chip">MOQ: 1 piece</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="4.8 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:96%">★★★★★</span></span> · Made by Guangzhou Chuangyou Auto Parts Co., Ltd. · <b>4.8</b></div>
+<div class="foot"><a class="btn deal" href="/lighting/for-bmw-e90-e91-original-headlight-2009-2010-2011-2012-hid-h.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Suspension (2)</h2></div><div class="prod-grid"><article class="prod-card" data-name="auto car rear front sway bar end stabilizer links for bmw e46 e91 e90 e93 e92 m4 g20 g21 g28 g30 auto car rear front sway bar end stabilizer links for bmw e46 e91 e90 e93 e92 m4 g20 g21 g28 g30 see listing  e46 e91 e90 e93 e92 g20 g21 g28 g30" data-price-min="" data-rating="" data-reviews="0" data-cat="suspension" data-band="" data-chassis="E46 E91 E90 E93 E92 G20 G21 G28 G30" data-material="">
+<a class="pimg" href="/suspension/auto-car-rear-front-sway-bar-end-stabilizer-links-for-bmw-e4.html"><img src="/assets/img/products/auto-car-rear-front-sway-bar-end-stabilizer-links-for-bmw-e4/hero.webp" alt="Auto Car Rear Front Sway Bar End Stabilizer Links For Bmw E46 E91 E90 E93 E92 M4 G20 G21 G28 G30" loading="lazy"></a>
+<div class="body">
+<h3><a href="/suspension/auto-car-rear-front-sway-bar-end-stabilizer-links-for-bmw-e4.html">Auto Car Rear Front Sway Bar End Stabilizer Links For Bmw E46 E91 E90 E93 E92 M4 G20 G21 G28 G30</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier">Made by See listing</div>
+<div class="foot"><a class="btn deal" href="/suspension/auto-car-rear-front-sway-bar-end-stabilizer-links-for-bmw-e4.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="rts yz464 front angle kit drift angle lock kits control arm car suspesnsion parts for bmw e90/e91/e92 e81/e82 rts yz464 front angle kit drift angle lock kits control arm car suspesnsion parts for bmw e90/e91/e92 e81/e82 see listing  e90 e82 e92 e91" data-price-min="" data-rating="" data-reviews="0" data-cat="suspension" data-band="" data-chassis="E90 E82 E92 E91" data-material="">
+<a class="pimg" href="/suspension/rts-yz464-front-angle-kit-drift-angle-lock-kits-control-arm.html"><img src="/assets/img/products/rts-yz464-front-angle-kit-drift-angle-lock-kits-control-arm/hero.webp" alt="Rts Yz464 Front Angle Kit Drift Angle Lock Kits Control Arm Car Suspesnsion Parts For Bmw E90/e91/e92 E81/e82" loading="lazy"></a>
+<div class="body">
+<h3><a href="/suspension/rts-yz464-front-angle-kit-drift-angle-lock-kits-control-arm.html">Rts Yz464 Front Angle Kit Drift Angle Lock Kits Control Arm Car Suspesnsion Parts For Bmw E90/e91/e92 E81/e82</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier">Made by See listing</div>
+<div class="foot"><a class="btn deal" href="/suspension/rts-yz464-front-angle-kit-drift-angle-lock-kits-control-arm.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Engine &amp; Fuel (6)</h2></div><div class="prod-grid"><article class="prod-card" data-name="aluminum dct 7 speed transmission oil pan for bmw m2 m3 m4 m5 m6 e91 e93 335i e82 e88 135i n55 s55 aluminum dct 7 speed transmission oil pan for bmw m2 m3 m4 m5 m6 e91 e93 335i e82 e88 135i n55 s55 see listing  e91 e93 e82 e88" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="E91 E93 E82 E88" data-material="">
+<a class="pimg" href="/engine/aluminum-dct-7-speed-transmission-oil-pan-for-bmw-m2-m3-m4-m.html"><img src="/assets/img/products/aluminum-dct-7-speed-transmission-oil-pan-for-bmw-m2-m3-m4-m/hero.webp" alt="Aluminum Dct 7 Speed Transmission Oil Pan For Bmw M2 M3 M4 M5 M6 E91 E93 335i E82 E88 135i N55 S55" loading="lazy"></a>
+<div class="body">
+<h3><a href="/engine/aluminum-dct-7-speed-transmission-oil-pan-for-bmw-m2-m3-m4-m.html">Aluminum Dct 7 Speed Transmission Oil Pan For Bmw M2 M3 M4 M5 M6 E91 E93 335i E82 E88 135i N55 S55</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier">Made by See listing</div>
+<div class="foot"><a class="btn deal" href="/engine/aluminum-dct-7-speed-transmission-oil-pan-for-bmw-m2-m3-m4-m.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="for bmw e70 f01 f07 f10 f25 n57 e90 e91 e92 engine intake swirl flap delete blank plug with manifold gaskets for bmw e70 f01 f07 f10 f25 n57 e90 e91 e92 engine intake swirl flap delete blank plug with manifold gaskets see listing  e70 f07 f10 e90 e91 e92" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="E70 F07 F10 E90 E91 E92" data-material="">
+<a class="pimg" href="/engine/for-bmw-e70-f01-f07-f10-f25-n57-e90-e91-e92-engine-intake-sw.html"><img src="/assets/img/products/for-bmw-e70-f01-f07-f10-f25-n57-e90-e91-e92-engine-intake-sw/hero.webp" alt="For Bmw E70 F01 F07 F10 F25 N57 E90 E91 E92 Engine Intake Swirl Flap Delete Blank Plug With Manifold Gaskets" loading="lazy"></a>
+<div class="body">
+<h3><a href="/engine/for-bmw-e70-f01-f07-f10-f25-n57-e90-e91-e92-engine-intake-sw.html">For Bmw E70 F01 F07 F10 F25 N57 E90 E91 E92 Engine Intake Swirl Flap Delete Blank Plug With Manifold Gaskets</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier">Made by See listing</div>
+<div class="foot"><a class="btn deal" href="/engine/for-bmw-e70-f01-f07-f10-f25-n57-e90-e91-e92-engine-intake-sw.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="kingtec n54 engine tuning forged n54 pistons kit for bmw e90/e91/e92/e93 335i 2006 2007 2008 2009 2010 kingtec n54 engine tuning forged n54 pistons kit for bmw e90/e91/e92/e93 335i 2006 2007 2008 2009 2010 see listing  e90 e92 e93 e91" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="E90 E92 E93 E91" data-material="">
+<a class="pimg" href="/engine/kingtec-n54-engine-tuning-forged-n54-pistons-kit-for-bmw-e90.html"><img src="/assets/img/products/kingtec-n54-engine-tuning-forged-n54-pistons-kit-for-bmw-e90/hero.webp" alt="Kingtec N54 Engine Tuning Forged N54 Pistons Kit For Bmw E90/e91/e92/e93 335i 2006 2007 2008 2009 2010" loading="lazy"></a>
+<div class="body">
+<h3><a href="/engine/kingtec-n54-engine-tuning-forged-n54-pistons-kit-for-bmw-e90.html">Kingtec N54 Engine Tuning Forged N54 Pistons Kit For Bmw E90/e91/e92/e93 335i 2006 2007 2008 2009 2010</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier">Made by See listing</div>
+<div class="foot"><a class="btn deal" href="/engine/kingtec-n54-engine-tuning-forged-n54-pistons-kit-for-bmw-e90.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="new type top sale exhaust downpipe+intercooler+charge pipe for bmw e82 e88 135i 335i e90 e91 e92 new type top sale exhaust downpipe+intercooler+charge pipe for bmw e82 e88 135i 335i e90 e91 e92 see listing  e82 e88 e90 e91 e92" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="E82 E88 E90 E91 E92" data-material="">
+<a class="pimg" href="/engine/new-type-top-sale-exhaust-downpipe-intercooler-charge-pipe-f.html"><img src="/assets/img/products/new-type-top-sale-exhaust-downpipe-intercooler-charge-pipe-f/hero.webp" alt="New Type Top Sale Exhaust Downpipe+intercooler+charge Pipe For Bmw E82 E88 135i 335i E90 E91 E92" loading="lazy"></a>
+<div class="body">
+<h3><a href="/engine/new-type-top-sale-exhaust-downpipe-intercooler-charge-pipe-f.html">New Type Top Sale Exhaust Downpipe+intercooler+charge Pipe For Bmw E82 E88 135i 335i E90 E91 E92</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier">Made by See listing</div>
+<div class="foot"><a class="btn deal" href="/engine/new-type-top-sale-exhaust-downpipe-intercooler-charge-pipe-f.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="high performance intercooler for bmw 325d 330d 335d e90 e91 e92 e93 direct fit aluminum turbo high performance intercooler for bmw 325d 330d 335d e90 e91 e92 e93 direct fit aluminum turbo see listing  e90 e91 e92 e93" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="E90 E91 E92 E93" data-material="">
+<a class="pimg" href="/engine/high-performance-intercooler-for-bmw-325d-330d-335d-e90-e91.html"><img src="/assets/img/products/high-performance-intercooler-for-bmw-325d-330d-335d-e90-e91/hero.webp" alt="High Performance Intercooler For Bmw 325d 330d 335d E90 E91 E92 E93 Direct Fit Aluminum Turbo" loading="lazy"></a>
+<div class="body">
+<h3><a href="/engine/high-performance-intercooler-for-bmw-325d-330d-335d-e90-e91.html">High Performance Intercooler For Bmw 325d 330d 335d E90 E91 E92 E93 Direct Fit Aluminum Turbo</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier">Made by See listing</div>
+<div class="foot"><a class="btn deal" href="/engine/high-performance-intercooler-for-bmw-325d-330d-335d-e90-e91.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="hot sale high performance aluminum intercooler for bmw 1 series 3 series e90 e91 e92 e93 larger hot sale high performance aluminum intercooler for bmw 1 series 3 series e90 e91 e92 e93 larger see listing  e90 e91 e92 e93" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="E90 E91 E92 E93" data-material="">
+<a class="pimg" href="/engine/hot-sale-high-performance-aluminum-intercooler-for-bmw-1-ser.html"><img src="/assets/img/products/hot-sale-high-performance-aluminum-intercooler-for-bmw-1-ser/hero.webp" alt="Hot Sale High Performance Aluminum Intercooler For Bmw 1 Series 3 Series E90 E91 E92 E93 Larger" loading="lazy"></a>
+<div class="body">
+<h3><a href="/engine/hot-sale-high-performance-aluminum-intercooler-for-bmw-1-ser.html">Hot Sale High Performance Aluminum Intercooler For Bmw 1 Series 3 Series E90 E91 E92 E93 Larger</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier">Made by See listing</div>
+<div class="foot"><a class="btn deal" href="/engine/hot-sale-high-performance-aluminum-intercooler-for-bmw-1-ser.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Interior Accessories (4)</h2></div><div class="prod-grid"><article class="prod-card" data-name="upgrade lcd digital cluster speedometer instrument with carplay new auto meter for bmw 3 series e90 e91 e92 e93 2005-2011 upgrade lcd digital cluster speedometer instrument with carplay new auto meter for bmw 3 series e90 e91 e92 e93 2005-2011 shenzhen kanor electronic technology co., ltd., 8 yrs, shenzhen cn, 4.3/5, tuv rheinland  e90 e91 e92 e93" data-price-min="10" data-rating="4.3" data-reviews="0" data-cat="interior" data-band="under-100" data-chassis="E90 E91 E92 E93" data-material="">
+<a class="pimg" href="/interior/upgrade-lcd-digital-cluster-speedometer-instrument-with-carp.html"><img src="/assets/img/products/upgrade-lcd-digital-cluster-speedometer-instrument-with-carp/hero.jpg" alt="Upgrade LCD Digital Cluster Speedometer Instrument with Carplay New Auto Meter for BMW 3 Series E90 E91 E92 E93 2005-2011" loading="lazy"></a>
+<div class="body">
+<h3><a href="/interior/upgrade-lcd-digital-cluster-speedometer-instrument-with-carp.html">Upgrade LCD Digital Cluster Speedometer Instrument with Carplay New Auto Meter for BMW 3 Series E90 E91 E92 E93 2005-2011</a></h3>
+<div class="price"><span class="conv-price" data-min="10" data-max="287" data-cur="USD" data-orig="$287 / piece — 10% off ends Sept 30">$287 / piece — 10% off ends Sept 30</span></div>
+<div class="meta-row"><span class="chip">MOQ: 1 piece</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="4.3 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:86%">★★★★★</span></span> · Made by <a href="/manufacturers/shenzhen-kanor-electronic-technology-co-ltd.html">Shenzhen Kanor Electronic Technology Co., Ltd., 8 yrs, Shenzhen CN, 4.3/5, TUV Rheinland</a> · <b>4.3</b></div>
+<div class="foot"><a class="btn deal" href="/interior/upgrade-lcd-digital-cluster-speedometer-instrument-with-carp.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="new for bmw 3 series e90 e91 e92 e93 2005 2012 car lcd dashboard digital instrument cluster auto new for bmw 3 series e90 e91 e92 e93 2005 2012 car lcd dashboard digital instrument cluster auto see listing  e90 e91 e92 e93" data-price-min="" data-rating="" data-reviews="0" data-cat="interior" data-band="" data-chassis="E90 E91 E92 E93" data-material="">
+<a class="pimg" href="/interior/new-for-bmw-3-series-e90-e91-e92-e93-2005-2012-car-lcd-dashb.html"><img src="/assets/img/products/new-for-bmw-3-series-e90-e91-e92-e93-2005-2012-car-lcd-dashb/hero.webp" alt="New For Bmw 3 Series E90 E91 E92 E93 2005 2012 Car Lcd Dashboard Digital Instrument Cluster Auto" loading="lazy"></a>
+<div class="body">
+<h3><a href="/interior/new-for-bmw-3-series-e90-e91-e92-e93-2005-2012-car-lcd-dashb.html">New For Bmw 3 Series E90 E91 E92 E93 2005 2012 Car Lcd Dashboard Digital Instrument Cluster Auto</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier">Made by See listing</div>
+<div class="foot"><a class="btn deal" href="/interior/new-for-bmw-3-series-e90-e91-e92-e93-2005-2012-car-lcd-dashb.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="bmw 3 e90 e91 e92 e93 car stereo i-drive 10.25\&quot; touchscreen linux system android auto gps navi bmw 3 e90 e91 e92 e93 car stereo i-drive 10.25\&quot; touchscreen linux system android auto gps navi see listing  e90 e91 e92 e93" data-price-min="" data-rating="" data-reviews="0" data-cat="interior" data-band="" data-chassis="E90 E91 E92 E93" data-material="">
+<a class="pimg" href="/interior/bmw-3-e90-e91-e92-e93-car-stereo-i-drive-10-25-touchscreen-l.html"><img src="/assets/img/products/bmw-3-e90-e91-e92-e93-car-stereo-i-drive-10-25-touchscreen-l/hero.webp" alt="Bmw 3 E90 E91 E92 E93 Car Stereo I-drive 10.25\&quot; Touchscreen Linux System Android Auto Gps Navi" loading="lazy"></a>
+<div class="body">
+<h3><a href="/interior/bmw-3-e90-e91-e92-e93-car-stereo-i-drive-10-25-touchscreen-l.html">Bmw 3 E90 E91 E92 E93 Car Stereo I-drive 10.25\&quot; Touchscreen Linux System Android Auto Gps Navi</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier">Made by See listing</div>
+<div class="foot"><a class="btn deal" href="/interior/bmw-3-e90-e91-e92-e93-car-stereo-i-drive-10-25-touchscreen-l.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="for bmw e90 e91 e92 e93 e81 e82 e87 e88 m3 m4 carbon fiber led steering wheel | custom racing flat bottom display upgrade for bmw e90 e91 e92 e93 e81 e82 e87 e88 m3 m4 carbon fiber led steering wheel | custom racing flat bottom display upgrade see listing  e90 e91 e92 e93 e82 e87 e88" data-price-min="" data-rating="" data-reviews="0" data-cat="interior" data-band="" data-chassis="E90 E91 E92 E93 E82 E87 E88" data-material="Carbon fiber">
+<a class="pimg" href="/interior/for-bmw-e90-e91-e92-e93-e81-e82-e87-e88-m3-m4-carbon-fiber-l.html"><img src="/assets/img/products/for-bmw-e90-e91-e92-e93-e81-e82-e87-e88-m3-m4-carbon-fiber-l/hero.webp" alt="For Bmw E90 E91 E92 E93 E81 E82 E87 E88 M3 M4 Carbon Fiber Led Steering Wheel | Custom Racing Flat Bottom Display Upgrade" loading="lazy"></a>
+<div class="body">
+<h3><a href="/interior/for-bmw-e90-e91-e92-e93-e81-e82-e87-e88-m3-m4-carbon-fiber-l.html">For Bmw E90 E91 E92 E93 E81 E82 E87 E88 M3 M4 Carbon Fiber Led Steering Wheel | Custom Racing Flat Bottom Display Upgrade</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier">Made by See listing</div>
+<div class="foot"><a class="btn deal" href="/interior/for-bmw-e90-e91-e92-e93-e81-e82-e87-e88-m3-m4-carbon-fiber-l.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Electronics &amp; Gauges (2)</h2></div><div class="prod-grid"><article class="prod-card" data-name="10.25 wireless carplay linux screen for bmw e90 e91 e92 e93 ccc cic android auto multimedia display 10.25 wireless carplay linux screen for bmw e90 e91 e92 e93 ccc cic android auto multimedia display see listing  e90 e91 e92 e93" data-price-min="" data-rating="" data-reviews="0" data-cat="electronics" data-band="" data-chassis="E90 E91 E92 E93" data-material="">
+<a class="pimg" href="/electronics/10-25-wireless-carplay-linux-screen-for-bmw-e90-e91-e92-e93.html"><img src="/assets/img/products/10-25-wireless-carplay-linux-screen-for-bmw-e90-e91-e92-e93/hero.webp" alt="10.25 Wireless Carplay Linux Screen For Bmw E90 E91 E92 E93 Ccc Cic Android Auto Multimedia Display" loading="lazy"></a>
+<div class="body">
+<h3><a href="/electronics/10-25-wireless-carplay-linux-screen-for-bmw-e90-e91-e92-e93.html">10.25 Wireless Carplay Linux Screen For Bmw E90 E91 E92 E93 Ccc Cic Android Auto Multimedia Display</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier">Made by See listing</div>
+<div class="foot"><a class="btn deal" href="/electronics/10-25-wireless-carplay-linux-screen-for-bmw-e90-e91-e92-e93.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="kanor speedometer digital cluster lcd dashboard with carplay for bmw 3 series e90 e91 e92 2006-2012 kanor speedometer digital cluster lcd dashboard with carplay for bmw 3 series e90 e91 e92 2006-2012 see listing  e90 e91 e92" data-price-min="" data-rating="" data-reviews="0" data-cat="electronics" data-band="" data-chassis="E90 E91 E92" data-material="">
+<a class="pimg" href="/electronics/kanor-speedometer-digital-cluster-lcd-dashboard-with-carplay.html"><img src="/assets/img/products/kanor-speedometer-digital-cluster-lcd-dashboard-with-carplay/hero.webp" alt="Kanor Speedometer Digital Cluster Lcd Dashboard With Carplay For Bmw 3 Series E90 E91 E92 2006-2012" loading="lazy"></a>
+<div class="body">
+<h3><a href="/electronics/kanor-speedometer-digital-cluster-lcd-dashboard-with-carplay.html">Kanor Speedometer Digital Cluster Lcd Dashboard With Carplay For Bmw 3 Series E90 E91 E92 2006-2012</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier">Made by See listing</div>
+<div class="foot"><a class="btn deal" href="/electronics/kanor-speedometer-digital-cluster-lcd-dashboard-with-carplay.html">View details &rarr;</a></div>
+</div>
+</article>
+</div>
+<div style="margin-top:30px"><div class="btn-row">
+<a class="btn ghost" href="/garage/">← Shop another vehicle</a></div></div>
+</section>
+<footer class="site"><div class="wrap"><div class="cols">
+<div><b style="color:var(--text)">FACTORYPLUG</b><br>An automotive supply-chain intelligence directory.<br>No inventory. No checkout. No middlemen.</div>
+<div><b style="color:var(--text)">Catalog</b><br>
+<a href="/wheels/">Forged Wheels</a><br><a href="/brakes/">Brakes</a><br><a href="/exhaust/">Exhaust</a><br><a href="/carbon/">Carbon &amp; Body</a></div>
+<div><b style="color:var(--text)">More</b><br>
+<a href="/about.html">Why I Built This</a><br><a href="/manufacturers/">Who Makes What</a><br><a href="/suspension/">Suspension</a><br><a href="/engine/">Engine &amp; Fueling</a><br><a href="/interior/">Interior</a><br><a href="/lighting/">Lighting</a></div>
+<div><b style="color:var(--text)">Trust</b><br>
+<a href="/disclosure.html">Affiliate Disclosure</a><br><a href="/privacy.html">Privacy Policy</a><br><a href="/terms.html">Terms of Service</a><br><a href="/contact.html">Contact</a><br><a href="https://partsplugvault.store/parts">Parts Plug Vault 🔌</a></div>
+<div><b style="color:var(--text)">Follow Conroy</b><br>
+<a href="https://www.instagram.com/royblinge90" rel="noopener" target="_blank">Instagram — @royblinge90</a><br><a href="https://www.tiktok.com/@pistonplays" rel="noopener" target="_blank">TikTok — @pistonplays</a><br><a href="https://www.youtube.com/@pistonplay" rel="noopener" target="_blank">YouTube — Piston Play (@pistonplay)</a><br><a href="https://www.threads.com/@royblinge90" rel="noopener" target="_blank">Threads — @royblinge90</a><br><a href="https://x.com/royblinge90" rel="noopener" target="_blank">X — @royblinge90</a><br>
+<span style="font-size:.85rem;color:var(--muted)">Want more info? Follow me here.</span></div>
+</div>
+<small>As an affiliate, we may earn a commission when you buy through links on this site, at no extra cost to you. Fitment is never guaranteed — always confirm year, model, trim and VIN directly with the supplier contact before buying.<br>
+Free sourcing by <b style="color:var(--gold)">RoyblingE90</b> 🔌<br>
+&copy; 2026 FactoryPlug. All rights reserved.</small>
+</div></footer>
+</body>
+</html>
