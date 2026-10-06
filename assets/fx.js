@@ -48,10 +48,12 @@
 
   function convertScope(scope) {
     if (!RATES[target]) return;
-    var nf;
+    var nf, nf2;
     try {
       nf = new Intl.NumberFormat(navigator.language || "en-US",
         { style: "currency", currency: target, maximumFractionDigits: 0 });
+      nf2 = new Intl.NumberFormat(navigator.language || "en-US",
+        { style: "currency", currency: target, maximumFractionDigits: 2 });
     } catch (e) { return; }
 
     // Rates are "units per 1 USD": amount_in_src / RATES[src] = USD value.
@@ -60,7 +62,12 @@
       var usd = amount / (RATES[srcCur] || 1);
       return usd * RATES[target];
     }
-    function fmt(amount, srcCur) { return nf.format(Math.round(toTarget(amount, srcCur))); }
+    // Never render $0 for a non-zero price: sub-dollar conversions keep cents.
+    function fmt(amount, srcCur) {
+      var v = toTarget(amount, srcCur);
+      if (v > 0 && Math.round(v) === 0) return nf2.format(Math.round(v * 100) / 100);
+      return nf.format(Math.round(v));
+    }
     function range(min, max, srcCur) {
       return min === max ? fmt(min, srcCur) : fmt(min, srcCur) + "\u2013" + fmt(max, srcCur);
     }
