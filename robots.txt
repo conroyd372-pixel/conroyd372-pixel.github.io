@@ -1,3 +1,37 @@
+# Block AI training/scraper bots — site owner directive (2026-10-06).
+# Social link-preview crawlers (facebookexternalhit, Twitterbot, LinkedInBot,
+# Slackbot, etc.) remain allowed via the wildcard group below.
+User-agent: GPTBot
+Disallow: /
+User-agent: ChatGPT-User
+Disallow: /
+User-agent: ClaudeBot
+Disallow: /
+User-agent: anthropic-ai
+Disallow: /
+User-agent: PerplexityBot
+Disallow: /
+User-agent: CCBot
+Disallow: /
+User-agent: Bytespider
+Disallow: /
+User-agent: FacebookBot
+Disallow: /
+User-agent: Applebot-Extended
+Disallow: /
+User-agent: cohere-ai
+Disallow: /
+User-agent: mistralai-user
+Disallow: /
+
+# Google stays fully allowed (organic traffic)
+User-agent: Googlebot
+Allow: /
+User-agent: Googlebot-Image
+Allow: /
+
+# Everyone else allowed
 User-agent: *
 Allow: /
+
 Sitemap: https://conroyd372-pixel.github.io/sitemap.xml
