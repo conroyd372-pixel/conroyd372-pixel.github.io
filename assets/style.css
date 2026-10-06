@@ -214,6 +214,11 @@ border-radius:14px;border:1px solid var(--line);background:#0b0f16}
 .note{font-size:.85rem;color:var(--muted);border-left:3px solid var(--line2);padding:8px 12px;margin:14px 0}
 .supply-matrix .url{word-break:break-all;color:var(--muted2);font-size:.8rem}
 .prod-hero{display:grid;grid-template-columns:1fr;gap:20px;padding:22px 0 36px;align-items:start}
+.verify-snapshot{border:1px solid var(--line2);border-radius:12px;padding:12px 14px;margin:12px 0;background:var(--card);font-size:.88rem}
+.verify-snapshot .vs-title{font-weight:800;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.verify-snapshot .vs-row{display:flex;gap:8px;padding:3px 0;color:var(--text)}
+.verify-snapshot .vs-row span:first-child{flex:0 0 auto}
+.verify-snapshot .vs-note{color:var(--muted);font-size:.82rem}
 .prod-hero .pimg-main{border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow);background:#0a0d13;position:relative}
 .prod-hero .pimg-main img{width:100%;display:block;aspect-ratio:4/3;object-fit:cover}
 .prod-gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
