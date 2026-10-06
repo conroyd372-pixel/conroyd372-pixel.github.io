@@ -23,6 +23,8 @@ User-agent: cohere-ai
 Disallow: /
 User-agent: mistralai-user
 Disallow: /
+User-agent: Google-Extended
+Disallow: /
 
 # Google stays fully allowed (organic traffic)
 User-agent: Googlebot
