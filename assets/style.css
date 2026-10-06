@@ -420,6 +420,7 @@ footer.site small{display:block;margin-top:18px;line-height:1.7;color:var(--mute
   .prod-card h3{font-size:.98rem}
   .prod-card .price{font-size:1.12rem}
   .prod-hero{grid-template-columns:1.05fr .95fr;gap:30px}
+  .prod-hero>div:first-child{position:sticky;top:84px;align-self:start}
   .buy-panel{padding:26px}
   .buy-panel h1{font-size:1.42rem}
   .price-xl{font-size:1.9rem}
