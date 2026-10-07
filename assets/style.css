@@ -163,6 +163,12 @@ p.sec-sub{color:var(--muted);margin-bottom:20px;max-width:720px;font-size:.95rem
 .lchip.active{border-color:var(--gold);color:var(--gold);background:var(--gold-soft)}
 .lt-count{margin-left:auto;font-size:.84rem;color:var(--muted)}
 .lt-site-link{display:block;margin-top:10px;font-size:.85rem;text-align:center}
+.cat-pager{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;margin:22px 0 8px}
+.pg-btn{min-width:40px;padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--text);font-size:.9rem;cursor:pointer}
+.pg-btn:hover:not(:disabled){border-color:var(--accent)}
+.pg-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700}
+.pg-btn:disabled{opacity:.4;cursor:default}
+.pg-gap{color:var(--muted);padding:0 2px}
 /* ---------- search filters (search.html) ---------- */
 .filter-panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin:14px 0 20px;display:flex;flex-direction:column;gap:12px}
 .filter-group{display:flex;flex-direction:column;gap:8px}
