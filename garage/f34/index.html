@@ -142,7 +142,11 @@
       var code = chassisSel.value;
       if (!code || !data[code]) return;
       var v = data[code];
-      var label = code + ' ' + v.model;
+      var _mt = (v.model || '').trim();
+      var _first = _mt.split(' ')[0].split('/')[0].toLowerCase();
+      // Never "Q50 Q50": when the model already starts with the chassis code,
+      // the model alone is the label (2026-10-07 fix).
+      var label = (_first === String(code).toLowerCase()) ? _mt : code + ' ' + _mt;
       save({ code: code, make: v.make, label: label });
       g = load();
       if (ind) {
