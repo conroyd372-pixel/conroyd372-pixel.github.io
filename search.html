@@ -161,45 +161,6 @@ document.addEventListener("DOMContentLoaded", function () {
       var browseMode = words.length === 0;
       var label = browseMode ? "browsing with filters"
         : 'for "' + q + '"';
-      /* No verdict — neither "no matches" nor a final result count —
-         may print until the index is PROVEN complete. Completeness has
-         to be positively confirmed via FPSearch.indexComplete(); a
-         missing helper (a stale cached search.js served during a
-         deploy) counts as NOT complete, never as complete — the old
-         fail-open check is what let the core-only "No matches" flash
-         through. While incomplete: empty results show a searching
-         state; partial results render but are labeled "so far"; and we
-         re-run automatically when the index completes. */
-      var complete = !!(window.FPSearch && FPSearch.indexComplete &&
-        FPSearch.indexComplete());
-      if (!complete) {
-        if (!top.length) {
-          status.textContent = "Searching the full catalog…";
-          results.innerHTML = "";
-        } else {
-          status.textContent = top.length + " result" +
-            (top.length === 1 ? "" : "s") + " so far " + label +
-            " — searching the full catalog…";
-          results.innerHTML = top.map(function (r) {
-            return FPSearch.resultRow(r.doc, words);
-          }).join("");
-          if (window.__fp_convert) window.__fp_convert(results);
-        }
-        if (window.FPSearch && FPSearch.whenComplete) {
-          if (!completeWaiterArmed) {
-            completeWaiterArmed = true;
-            FPSearch.whenComplete(function () {
-              completeWaiterArmed = false;
-              run();
-            });
-          }
-          return;
-        }
-        /* Helpers missing entirely (version skew): poll briefly, then
-           fall through to the verdict with whatever has loaded rather
-           than hanging on "searching" forever. */
-        if (waitPolls++ < 25) { setTimeout(run, 1200); return; }
-      }
       status.textContent = top.length
         ? top.length + " result" + (top.length === 1 ? "" : "s") + " " + label +
           (filtered.length > 40 ? " (showing top 40)" : "")
@@ -216,8 +177,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   var deb = null;
-  var waitPolls = 0;
-  var completeWaiterArmed = false;
   input.addEventListener("input", function () {
     clearTimeout(deb);
     deb = setTimeout(run, 160);

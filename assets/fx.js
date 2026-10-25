@@ -263,49 +263,4 @@
       document.body.removeChild(ta);
     }
   });
-
-  // ---- Mobile navigation toggle (2026-10-25 mobile audit) ----
-  // Header markup is generated per page, so the button is injected here
-  // (fx.js loads sitewide). Presentation lives in style.css (max-width:900px).
-  (function mobileNav() {
-    function init() {
-      var wrap = document.querySelector('.nav');
-      if (!wrap) return;
-      var nav = wrap.querySelector('nav');
-      if (!nav || wrap.querySelector('.nav-toggle')) return;
-      if (!nav.id) nav.id = 'fpMainNav';
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'nav-toggle';
-      btn.setAttribute('aria-label', 'Open menu');
-      btn.setAttribute('aria-expanded', 'false');
-      btn.setAttribute('aria-controls', nav.id);
-      btn.textContent = '☰';
-      wrap.insertBefore(btn, nav);
-      function setOpen(open) {
-        wrap.classList.toggle('menu-open', open);
-        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-        btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-        btn.textContent = open ? '✕' : '☰';
-      }
-      btn.addEventListener('click', function () {
-        setOpen(!wrap.classList.contains('menu-open'));
-      });
-      nav.addEventListener('click', function (e) {
-        if (e.target.closest('a')) setOpen(false);
-      });
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') setOpen(false);
-      });
-      document.addEventListener('click', function (e) {
-        if (wrap.classList.contains('menu-open') && !wrap.contains(e.target)) setOpen(false);
-      });
-      window.addEventListener('resize', function () {
-        if (window.innerWidth > 900) setOpen(false);
-      });
-    }
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', init);
-    } else { init(); }
-  })();
 })();

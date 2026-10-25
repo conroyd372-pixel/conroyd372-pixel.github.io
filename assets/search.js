@@ -27,61 +27,25 @@
      then per-category shards stream in and FPSearch.onShard fires so live
      results refresh as each shard arrives. Phones never block on one giant
      JSON download/parse. */
-  /* Index completeness tracking: the core file lands first and category
-     shards stream in after. Until every shard has settled, result sets are
-     PARTIAL — UIs must not declare "no matches" yet (that false negative
-     is what users hit when filters/instant search ran against the core
-     alone). indexComplete() reports when the full catalog is in. */
-  var idxComplete = false;
-  var idxWaiters = [];
-  function markComplete() {
-    idxComplete = true;
-    var w = idxWaiters; idxWaiters = [];
-    w.forEach(function (cb) { try { cb(); } catch (e) {} });
-  }
-  function whenComplete(cb) {
-    if (idxComplete) { cb(); return; }
-    idxWaiters.push(cb);
-  }
-
-  var loadPromise = null;
   function loadIndex() {
     if (cache) return Promise.resolve(cache);
-    /* Single-flight: a second call while the first round is still
-       fetching must join that round, not start a rival one. A rival
-       round's core handler would reset cache to the core snapshot —
-       wiping shard docs already loaded — while its own pending counter
-       could declare the index complete over a partial cache: renders
-       in that window print false "no matches" verdicts. */
-    if (loadPromise) return loadPromise;
-    loadPromise = fetch(fpUrl("/search-index-manifest.json")).then(function (r) { return r.json(); })
+    return fetch(fpUrl("/search-index-manifest.json")).then(function (r) { return r.json(); })
       .then(function (m) {
         return fetch(fpUrl(m.core)).then(function (r) { return r.json(); })
           .then(function (core) {
             cache = core.slice();
-            var shards = m.shards || [];
-            if (!shards.length) markComplete();
-            var pending = shards.length;
-            shards.forEach(function (shard) {
+            (m.shards || []).forEach(function (shard) {
               fetch(fpUrl(shard)).then(function (r) { return r.json(); })
                 .then(function (docs) {
                   cache = cache.concat(docs);
                   if (window.FPSearch && window.FPSearch.onShard) {
                     try { window.FPSearch.onShard(cache); } catch (e) {}
                   }
-                }).catch(function () {})
-                .then(function () {
-                  pending -= 1;
-                  if (pending <= 0) markComplete();
-                });
+                }).catch(function () {});
             });
             return cache;
           });
       });
-    /* A failed round must not poison later calls: drop the shared
-       promise on rejection so the next caller retries the fetch. */
-    loadPromise.catch(function () { loadPromise = null; });
-    return loadPromise;
   }
 
   function esc(s) {
@@ -160,8 +124,6 @@
   window.FPSearch = {
     loadIndex: loadIndex, score: score, wordsOf: wordsOf,
     highlight: highlight, resultRow: resultRow, liveItem: liveItem, esc: esc,
-    url: fpUrl, onShard: null,
-    indexComplete: function () { return idxComplete; },
-    whenComplete: whenComplete
+    url: fpUrl, onShard: null
   };
 })();
