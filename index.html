@@ -25,7 +25,7 @@
 <style>
 .hero{position:relative;overflow:hidden}
 .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
-.hero-shade{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg, rgba(10,12,17,.62) 0%, rgba(10,12,17,.38) 34%, rgba(10,12,17,.46) 62%, rgba(10,12,17,.92) 100%),radial-gradient(900px 480px at 50% 30%, rgba(10,12,17,.30) 0%, rgba(10,12,17,.62) 78%)}
+.hero-shade{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg, rgba(10,12,17,.82) 0%, rgba(10,12,17,.70) 26%, rgba(10,12,17,.58) 46%, rgba(10,12,17,.34) 66%, rgba(10,12,17,.28) 80%, rgba(10,12,17,.86) 100%)}
 .hero .wrap{position:relative;z-index:2}
 .hero h1{text-shadow:0 2px 22px rgba(0,0,0,.75)}
 @media (prefers-reduced-motion: reduce){.hero-video{display:none}}
@@ -373,11 +373,14 @@ document.addEventListener("DOMContentLoaded", function () {
         if (my !== seq || input.value.trim() !== q) return;
         var words = FPSearch.wordsOf(q);
         var res = FPSearch.score(docs, q).slice(0, 6);
-        if (!res.length && FPSearch.indexComplete && !FPSearch.indexComplete()) {
+        if (!res.length && !(FPSearch.indexComplete && FPSearch.indexComplete())) {
           /* Index shards are still arriving — a "no matches" verdict now
              would be false for most of the catalog (e.g. "BMW" against
-             the 63-doc core alone). Show a searching state; onShard
-             refresh re-renders with the full results. */
+             the 63-doc core alone). Completeness must be positively
+             confirmed; a missing indexComplete helper (stale cached
+             search.js) also lands here, never in the verdict below.
+             Show a searching state; onShard refresh re-renders with
+             the full results. */
           panel.innerHTML = '<div class="sl-empty">Searching the full catalog&hellip;</div>';
         } else if (!res.length) {
           panel.innerHTML = '<div class="sl-empty">No instant matches for &ldquo;' +

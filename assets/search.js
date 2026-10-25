@@ -44,9 +44,17 @@
     idxWaiters.push(cb);
   }
 
+  var loadPromise = null;
   function loadIndex() {
     if (cache) return Promise.resolve(cache);
-    return fetch(fpUrl("/search-index-manifest.json")).then(function (r) { return r.json(); })
+    /* Single-flight: a second call while the first round is still
+       fetching must join that round, not start a rival one. A rival
+       round's core handler would reset cache to the core snapshot —
+       wiping shard docs already loaded — while its own pending counter
+       could declare the index complete over a partial cache: renders
+       in that window print false "no matches" verdicts. */
+    if (loadPromise) return loadPromise;
+    loadPromise = fetch(fpUrl("/search-index-manifest.json")).then(function (r) { return r.json(); })
       .then(function (m) {
         return fetch(fpUrl(m.core)).then(function (r) { return r.json(); })
           .then(function (core) {
@@ -70,6 +78,10 @@
             return cache;
           });
       });
+    /* A failed round must not poison later calls: drop the shared
+       promise on rejection so the next caller retries the fetch. */
+    loadPromise.catch(function () { loadPromise = null; });
+    return loadPromise;
   }
 
   function esc(s) {
