@@ -27,6 +27,23 @@
      then per-category shards stream in and FPSearch.onShard fires so live
      results refresh as each shard arrives. Phones never block on one giant
      JSON download/parse. */
+  /* Index completeness tracking: the core file lands first and category
+     shards stream in after. Until every shard has settled, result sets are
+     PARTIAL — UIs must not declare "no matches" yet (that false negative
+     is what users hit when filters/instant search ran against the core
+     alone). indexComplete() reports when the full catalog is in. */
+  var idxComplete = false;
+  var idxWaiters = [];
+  function markComplete() {
+    idxComplete = true;
+    var w = idxWaiters; idxWaiters = [];
+    w.forEach(function (cb) { try { cb(); } catch (e) {} });
+  }
+  function whenComplete(cb) {
+    if (idxComplete) { cb(); return; }
+    idxWaiters.push(cb);
+  }
+
   function loadIndex() {
     if (cache) return Promise.resolve(cache);
     return fetch(fpUrl("/search-index-manifest.json")).then(function (r) { return r.json(); })
@@ -34,14 +51,21 @@
         return fetch(fpUrl(m.core)).then(function (r) { return r.json(); })
           .then(function (core) {
             cache = core.slice();
-            (m.shards || []).forEach(function (shard) {
+            var shards = m.shards || [];
+            if (!shards.length) markComplete();
+            var pending = shards.length;
+            shards.forEach(function (shard) {
               fetch(fpUrl(shard)).then(function (r) { return r.json(); })
                 .then(function (docs) {
                   cache = cache.concat(docs);
                   if (window.FPSearch && window.FPSearch.onShard) {
                     try { window.FPSearch.onShard(cache); } catch (e) {}
                   }
-                }).catch(function () {});
+                }).catch(function () {})
+                .then(function () {
+                  pending -= 1;
+                  if (pending <= 0) markComplete();
+                });
             });
             return cache;
           });
@@ -124,6 +148,8 @@
   window.FPSearch = {
     loadIndex: loadIndex, score: score, wordsOf: wordsOf,
     highlight: highlight, resultRow: resultRow, liveItem: liveItem, esc: esc,
-    url: fpUrl, onShard: null
+    url: fpUrl, onShard: null,
+    indexComplete: function () { return idxComplete; },
+    whenComplete: whenComplete
   };
 })();

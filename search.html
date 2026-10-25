@@ -161,6 +161,17 @@ document.addEventListener("DOMContentLoaded", function () {
       var browseMode = words.length === 0;
       var label = browseMode ? "browsing with filters"
         : 'for "' + q + '"';
+      /* While category shards are still streaming in, an empty result set
+         is not a verdict — the matching docs may simply not have arrived
+         yet. Say so, and re-run automatically when the index completes. */
+      var stillLoading = !top.length && window.FPSearch &&
+        FPSearch.indexComplete && !FPSearch.indexComplete();
+      if (stillLoading) {
+        status.textContent = "Loading the full catalog — hang on a second…";
+        results.innerHTML = "";
+        FPSearch.whenComplete(run);
+        return;
+      }
       status.textContent = top.length
         ? top.length + " result" + (top.length === 1 ? "" : "s") + " " + label +
           (filtered.length > 40 ? " (showing top 40)" : "")

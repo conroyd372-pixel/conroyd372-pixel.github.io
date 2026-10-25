@@ -47,8 +47,8 @@
 </video>
 <div class="hero-shade"></div>
 <div class="wrap">
-<h1>Buy factory-direct. Skip the middlemen.<br><span class="gold">Buyers meet factories. No inventory. No checkout. No markup.</span></h1>
-<p class="sub">Buy factory-direct car parts and skip the middleman. FactoryPlug lists 3,798 vetted Alibaba supplier listings with real prices, real specs and real MOQs.</p>
+<h1>Buy factory-direct. Skip the middlemen.<br><span class="gold">Buyers meet factories. No retail markup.</span></h1>
+<p class="sub">Buy factory-direct car parts and skip the middleman. FactoryPlug lists 3,798 vetted Alibaba supplier listings with real prices, real specs and real MOQs. You buy on the supplier's own Alibaba listing — we just hand you the direct link.</p>
 <div class="home-search-wrap">
 <form class="search-hero" action="/search.html" method="get" role="search" id="home-search-form">
 <input type="search" name="q" id="home-q" placeholder="What are you looking for? Try “G80 front lip”…" aria-label="Search parts" autocomplete="off">
@@ -343,7 +343,7 @@
 </div></section>
 <section class="block" style="border-top:1px solid var(--line)"><div class="wrap" style="text-align:center;max-width:680px;margin:0 auto">
 <h2 class="sec">Wheel & tire fitment, solved</h2>
-<p class="sec-sub">Bolt pattern, offset, center bore, the tire-size chart, plus-sizing rules — and a free <b>tire size calculator</b> that checks any two sizes in seconds. The best fitment guidance on the internet, free forever.</p>
+<p class="sec-sub">Bolt pattern, offset, center bore, the tire-size chart, plus-sizing rules — and a free <b>tire size calculator</b> that checks any two sizes in seconds. Fitment guidance, free forever.</p>
 <div class="btn-row"><a class="btn" href="/fitment-calculator/">Try the tire calculator</a><a class="btn ghost" href="/guides/">Browse all guides</a></div>
 </div></section>
 <section class="block" style="border-top:1px solid var(--line)"><div class="wrap" style="text-align:center;max-width:680px;margin:0 auto">
@@ -373,7 +373,13 @@ document.addEventListener("DOMContentLoaded", function () {
         if (my !== seq || input.value.trim() !== q) return;
         var words = FPSearch.wordsOf(q);
         var res = FPSearch.score(docs, q).slice(0, 6);
-        if (!res.length) {
+        if (!res.length && FPSearch.indexComplete && !FPSearch.indexComplete()) {
+          /* Index shards are still arriving — a "no matches" verdict now
+             would be false for most of the catalog (e.g. "BMW" against
+             the 63-doc core alone). Show a searching state; onShard
+             refresh re-renders with the full results. */
+          panel.innerHTML = '<div class="sl-empty">Searching the full catalog&hellip;</div>';
+        } else if (!res.length) {
           panel.innerHTML = '<div class="sl-empty">No instant matches for &ldquo;' +
             FPSearch.esc(q) + '&rdquo; — hit Search to try filters.</div>';
         } else {
