@@ -5,4 +5,4 @@ Allow: /
 User-agent: meta-externalagent
 Disallow: /
 
-Sitemap: https://conroyd372-pixel.github.io/sitemap.xml
+Sitemap: https://thefactoryplug.com/sitemap.xml
