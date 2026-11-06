@@ -64,10 +64,10 @@ header.site{position:sticky;top:0;z-index:60;background:rgba(26,29,33,.97);backd
 header.site .wrap{max-width:1360px}
 .nav nav{display:flex;gap:0;margin-left:auto;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px 0}
 .nav nav::-webkit-scrollbar{display:none}
-.nav nav a{color:#C9CDD2;font-size:.82rem;font-weight:600;padding:8px 7px;min-height:44px;display:inline-flex;align-items:center;border-radius:10px;white-space:nowrap;flex-shrink:0}
+.nav nav a{color:#C9CDD2;font-size:.82rem;font-weight:600;padding:8px 7px;min-height:48px;display:inline-flex;align-items:center;border-radius:10px;white-space:nowrap;flex-shrink:0}
 .nav nav a:hover{color:#FFFFFF;background:rgba(255,255,255,.09);text-decoration:none}
 .nav nav a.search-link{color:var(--gold);border:1px solid rgba(255,107,26,.4)}
-@media (max-width:720px){.logo img{height:32px}.nav nav{-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 30px),transparent);mask-image:linear-gradient(to right,#000 calc(100% - 30px),transparent)}}
+@media (max-width:720px){.logo img{height:32px}.nav{flex-wrap:wrap;row-gap:2px}.nav nav{flex-wrap:wrap;overflow:visible;margin-left:0;width:100%;padding:2px 0 4px;row-gap:2px}}
 /* ---------- hero ---------- */
 .hero{background:var(--ink);color:#F5F5F2;padding:44px 0 36px;text-align:center;border-bottom:0}
 .hero h1{font-size:clamp(1.75rem,6vw,3.1rem);line-height:1.14;margin-bottom:10px;letter-spacing:-.02em;font-weight:800}
@@ -366,6 +366,7 @@ border-radius:14px;border:1px solid var(--line);background:#ECECE4}
 /* footer */
 footer.site{border-top:0;padding:32px 0 46px;color:#B9BFC6;font-size:.85rem;background:var(--ink)}
 footer.site .cols{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+footer.site .cols a{display:inline-flex;align-items:center;min-height:48px;padding:3px 0}
 footer.site small{display:block;margin-top:18px;line-height:1.7;color:#9AA1A9}
 /* empty state */
 .empty{background:var(--card);border:1px dashed var(--line2);border-radius:var(--radius);padding:28px 20px;text-align:center;color:var(--muted)}
