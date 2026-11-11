@@ -277,6 +277,7 @@ border-radius:14px;border:1px solid var(--line);background:#ECECE4}
 .bp-rating{display:flex;align-items:center;flex-wrap:wrap;gap:2px}
 .bp-src{font-size:.76rem;color:var(--muted2);margin-left:8px}
 .price-xl{font-size:1.8rem;font-weight:800;color:var(--burnt);margin:12px 0 2px;letter-spacing:-.02em}
+.price-xl .price-note{font-size:.85rem;font-weight:500;color:var(--muted);letter-spacing:0;margin-top:6px;line-height:1.45}
 .price-sub{font-size:.84rem;color:var(--muted)}
 /* factory vs US price comparison — top of buy panel */
 .price-compare{margin:10px 0 4px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:rgba(26,29,33,.02)}
