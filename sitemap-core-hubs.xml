@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  <url><loc>https://thefactoryplug.com/</loc><lastmod>2026-11-12</lastmod></url>
-  <url><loc>https://thefactoryplug.com/wheels/</loc><lastmod>2026-11-12</lastmod></url>
+  <url><loc>https://thefactoryplug.com/</loc><lastmod>2026-11-13</lastmod></url>
+  <url><loc>https://thefactoryplug.com/wheels/</loc><lastmod>2026-11-13</lastmod></url>
   <url><loc>https://thefactoryplug.com/brakes/</loc><lastmod>2026-11-12</lastmod></url>
   <url><loc>https://thefactoryplug.com/exhaust/</loc><lastmod>2026-11-12</lastmod></url>
-  <url><loc>https://thefactoryplug.com/carbon/</loc><lastmod>2026-11-12</lastmod></url>
-  <url><loc>https://thefactoryplug.com/lighting/</loc><lastmod>2026-11-12</lastmod></url>
+  <url><loc>https://thefactoryplug.com/carbon/</loc><lastmod>2026-11-13</lastmod></url>
+  <url><loc>https://thefactoryplug.com/lighting/</loc><lastmod>2026-11-13</lastmod></url>
   <url><loc>https://thefactoryplug.com/suspension/</loc><lastmod>2026-11-12</lastmod></url>
-  <url><loc>https://thefactoryplug.com/engine/</loc><lastmod>2026-11-12</lastmod></url>
+  <url><loc>https://thefactoryplug.com/engine/</loc><lastmod>2026-11-13</lastmod></url>
   <url><loc>https://thefactoryplug.com/interior/</loc><lastmod>2026-11-06</lastmod></url>
   <url><loc>https://thefactoryplug.com/offroad/</loc><lastmod>2026-11-06</lastmod></url>
   <url><loc>https://thefactoryplug.com/exterior/</loc><lastmod>2026-11-06</lastmod></url>
@@ -91,7 +91,7 @@
   <url><loc>https://thefactoryplug.com/garage/g90/</loc><lastmod>2026-11-06</lastmod></url>
   <url><loc>https://thefactoryplug.com/garage/f11/</loc><lastmod>2026-11-06</lastmod></url>
   <url><loc>https://thefactoryplug.com/garage/e70/</loc><lastmod>2026-11-06</lastmod></url>
-  <url><loc>https://thefactoryplug.com/garage/ek/</loc><lastmod>2026-11-06</lastmod></url>
+  <url><loc>https://thefactoryplug.com/garage/ek/</loc><lastmod>2026-11-13</lastmod></url>
   <url><loc>https://thefactoryplug.com/garage/r35/</loc><lastmod>2026-11-06</lastmod></url>
   <url><loc>https://thefactoryplug.com/garage/s13/</loc><lastmod>2026-11-06</lastmod></url>
   <url><loc>https://thefactoryplug.com/garage/g32/</loc><lastmod>2026-11-06</lastmod></url>
@@ -107,7 +107,7 @@
   <url><loc>https://thefactoryplug.com/garage/g12/</loc><lastmod>2026-11-06</lastmod></url>
   <url><loc>https://thefactoryplug.com/garage/g15/</loc><lastmod>2026-11-06</lastmod></url>
   <url><loc>https://thefactoryplug.com/garage/e39/</loc><lastmod>2026-11-06</lastmod></url>
-  <url><loc>https://thefactoryplug.com/garage/s550/</loc><lastmod>2026-11-10</lastmod></url>
+  <url><loc>https://thefactoryplug.com/garage/s550/</loc><lastmod>2026-11-13</lastmod></url>
   <url><loc>https://thefactoryplug.com/garage/s15/</loc><lastmod>2026-11-06</lastmod></url>
   <url><loc>https://thefactoryplug.com/garage/g23/</loc><lastmod>2026-11-06</lastmod></url>
   <url><loc>https://thefactoryplug.com/garage/e30/</loc><lastmod>2026-11-12</lastmod></url>
@@ -169,34 +169,34 @@
   <url><loc>https://thefactoryplug.com/guides/wet-vs-dry-carbon-fiber.html</loc><lastmod>2026-11-11</lastmod></url>
   <url><loc>https://thefactoryplug.com/fitment-calculator/</loc><lastmod>2026-11-06</lastmod></url>
   <url><loc>https://thefactoryplug.com/manufacturers/</loc><lastmod>2026-11-06</lastmod></url>
-  <url><loc>https://thefactoryplug.com/manufacturers/icooh.html</loc><lastmod>2026-11-12</lastmod></url>
-  <url><loc>https://thefactoryplug.com/manufacturers/nanjing-qiusheng-technology-co-ltd.html</loc><lastmod>2026-11-06</lastmod></url>
-  <url><loc>https://thefactoryplug.com/manufacturers/jiangxi-boska-trading-co-ltd.html</loc><lastmod>2026-11-12</lastmod></url>
-  <url><loc>https://thefactoryplug.com/manufacturers/guangdong-carbonss-tuning-co-ltd.html</loc><lastmod>2026-11-06</lastmod></url>
-  <url><loc>https://thefactoryplug.com/manufacturers/suzhou-m-r-d-imp-and-exp-co-ltd.html</loc><lastmod>2026-11-06</lastmod></url>
-  <url><loc>https://thefactoryplug.com/manufacturers/zhejiang-longtai-shock-absorber-co-ltd.html</loc><lastmod>2026-11-06</lastmod></url>
-  <url><loc>https://thefactoryplug.com/manufacturers/guangzhou-lima-electronic-technology-co-ltd.html</loc><lastmod>2026-11-06</lastmod></url>
-  <url><loc>https://thefactoryplug.com/manufacturers/guangzhou-dcr-tuning-trade-company-limited.html</loc><lastmod>2026-11-06</lastmod></url>
-  <url><loc>https://thefactoryplug.com/manufacturers/jc-sportline-auto-parts-co-ltd.html</loc><lastmod>2026-11-12</lastmod></url>
-  <url><loc>https://thefactoryplug.com/manufacturers/nantong-fengyun-auto-parts-co-ltd.html</loc><lastmod>2026-11-09</lastmod></url>
-  <url><loc>https://thefactoryplug.com/manufacturers/yancheng-kuchi-autoparts-co-ltd.html</loc><lastmod>2026-11-06</lastmod></url>
-  <url><loc>https://thefactoryplug.com/manufacturers/guangzhou-hongchi-auto-parts-co-ltd.html</loc><lastmod>2026-11-06</lastmod></url>
-  <url><loc>https://thefactoryplug.com/manufacturers/guangzhou-meishi-electronic-technology-co-ltd.html</loc><lastmod>2026-11-06</lastmod></url>
-  <url><loc>https://thefactoryplug.com/manufacturers/dongguan-saibang-carbon-fiber-products-technology-co-ltd.html</loc><lastmod>2026-11-06</lastmod></url>
-  <url><loc>https://thefactoryplug.com/manufacturers/sjc-auto.html</loc><lastmod>2026-11-06</lastmod></url>
-  <url><loc>https://thefactoryplug.com/manufacturers/shuyang-zhongxin-automobile-technology-co-ltd.html</loc><lastmod>2026-11-06</lastmod></url>
-  <url><loc>https://thefactoryplug.com/manufacturers/qingdao-jtld-industrial-commercial-co-ltd.html</loc><lastmod>2026-11-12</lastmod></url>
-  <url><loc>https://thefactoryplug.com/manufacturers/guangzhou-legai-automotive-products-co-ltd.html</loc><lastmod>2026-11-06</lastmod></url>
-  <url><loc>https://thefactoryplug.com/manufacturers/foshan-zhenshenghui-international-trade-co-ltd.html</loc><lastmod>2026-11-06</lastmod></url>
-  <url><loc>https://thefactoryplug.com/manufacturers/jiangxi-chisuze-auto-parts-co-ltd.html</loc><lastmod>2026-11-06</lastmod></url>
-  <url><loc>https://thefactoryplug.com/manufacturers/yizheng-zejiang-industrial-design-co-ltd.html</loc><lastmod>2026-11-06</lastmod></url>
-  <url><loc>https://thefactoryplug.com/manufacturers/guangzhou-mingchi-international-trade-co-ltd.html</loc><lastmod>2026-11-06</lastmod></url>
-  <url><loc>https://thefactoryplug.com/manufacturers/shenzhen-kanor-electronic-technology-co-ltd.html</loc><lastmod>2026-11-06</lastmod></url>
-  <url><loc>https://thefactoryplug.com/manufacturers/jiangxi-lance-auto-parts-co-ltd.html</loc><lastmod>2026-11-06</lastmod></url>
-  <url><loc>https://thefactoryplug.com/manufacturers/karbel-automotive-technology.html</loc><lastmod>2026-11-12</lastmod></url>
-  <url><loc>https://thefactoryplug.com/manufacturers/guangzhou-wantian-industrial-co-ltd-brake-caliper-kit-manufa.html</loc><lastmod>2026-11-06</lastmod></url>
-  <url><loc>https://thefactoryplug.com/manufacturers/changzhou-yaotu-international-trade-co-ltd-changzhou.html</loc><lastmod>2026-11-06</lastmod></url>
-  <url><loc>https://thefactoryplug.com/manufacturers/shenzhen-chejiashi-technology-co-ltd.html</loc><lastmod>2026-11-06</lastmod></url>
-  <url><loc>https://thefactoryplug.com/manufacturers/wuxi-costel-technology-ltd.html</loc><lastmod>2026-11-06</lastmod></url>
-  <url><loc>https://thefactoryplug.com/manufacturers/taiwan-racing-products-co-ltd.html</loc><lastmod>2026-11-06</lastmod></url>
+  <url><loc>https://thefactoryplug.com/manufacturers/icooh.html</loc><lastmod>2026-11-13</lastmod></url>
+  <url><loc>https://thefactoryplug.com/manufacturers/nanjing-qiusheng-technology-co-ltd.html</loc><lastmod>2026-11-13</lastmod></url>
+  <url><loc>https://thefactoryplug.com/manufacturers/jiangxi-boska-trading-co-ltd.html</loc><lastmod>2026-11-13</lastmod></url>
+  <url><loc>https://thefactoryplug.com/manufacturers/guangdong-carbonss-tuning-co-ltd.html</loc><lastmod>2026-11-13</lastmod></url>
+  <url><loc>https://thefactoryplug.com/manufacturers/suzhou-m-r-d-imp-and-exp-co-ltd.html</loc><lastmod>2026-11-13</lastmod></url>
+  <url><loc>https://thefactoryplug.com/manufacturers/zhejiang-longtai-shock-absorber-co-ltd.html</loc><lastmod>2026-11-13</lastmod></url>
+  <url><loc>https://thefactoryplug.com/manufacturers/guangzhou-lima-electronic-technology-co-ltd.html</loc><lastmod>2026-11-13</lastmod></url>
+  <url><loc>https://thefactoryplug.com/manufacturers/guangzhou-dcr-tuning-trade-company-limited.html</loc><lastmod>2026-11-13</lastmod></url>
+  <url><loc>https://thefactoryplug.com/manufacturers/jc-sportline-auto-parts-co-ltd.html</loc><lastmod>2026-11-13</lastmod></url>
+  <url><loc>https://thefactoryplug.com/manufacturers/nantong-fengyun-auto-parts-co-ltd.html</loc><lastmod>2026-11-13</lastmod></url>
+  <url><loc>https://thefactoryplug.com/manufacturers/yancheng-kuchi-autoparts-co-ltd.html</loc><lastmod>2026-11-13</lastmod></url>
+  <url><loc>https://thefactoryplug.com/manufacturers/guangzhou-hongchi-auto-parts-co-ltd.html</loc><lastmod>2026-11-13</lastmod></url>
+  <url><loc>https://thefactoryplug.com/manufacturers/guangzhou-meishi-electronic-technology-co-ltd.html</loc><lastmod>2026-11-13</lastmod></url>
+  <url><loc>https://thefactoryplug.com/manufacturers/dongguan-saibang-carbon-fiber-products-technology-co-ltd.html</loc><lastmod>2026-11-13</lastmod></url>
+  <url><loc>https://thefactoryplug.com/manufacturers/sjc-auto.html</loc><lastmod>2026-11-13</lastmod></url>
+  <url><loc>https://thefactoryplug.com/manufacturers/shuyang-zhongxin-automobile-technology-co-ltd.html</loc><lastmod>2026-11-13</lastmod></url>
+  <url><loc>https://thefactoryplug.com/manufacturers/qingdao-jtld-industrial-commercial-co-ltd.html</loc><lastmod>2026-11-13</lastmod></url>
+  <url><loc>https://thefactoryplug.com/manufacturers/guangzhou-legai-automotive-products-co-ltd.html</loc><lastmod>2026-11-13</lastmod></url>
+  <url><loc>https://thefactoryplug.com/manufacturers/foshan-zhenshenghui-international-trade-co-ltd.html</loc><lastmod>2026-11-13</lastmod></url>
+  <url><loc>https://thefactoryplug.com/manufacturers/jiangxi-chisuze-auto-parts-co-ltd.html</loc><lastmod>2026-11-13</lastmod></url>
+  <url><loc>https://thefactoryplug.com/manufacturers/yizheng-zejiang-industrial-design-co-ltd.html</loc><lastmod>2026-11-13</lastmod></url>
+  <url><loc>https://thefactoryplug.com/manufacturers/guangzhou-mingchi-international-trade-co-ltd.html</loc><lastmod>2026-11-13</lastmod></url>
+  <url><loc>https://thefactoryplug.com/manufacturers/shenzhen-kanor-electronic-technology-co-ltd.html</loc><lastmod>2026-11-13</lastmod></url>
+  <url><loc>https://thefactoryplug.com/manufacturers/jiangxi-lance-auto-parts-co-ltd.html</loc><lastmod>2026-11-13</lastmod></url>
+  <url><loc>https://thefactoryplug.com/manufacturers/karbel-automotive-technology.html</loc><lastmod>2026-11-13</lastmod></url>
+  <url><loc>https://thefactoryplug.com/manufacturers/guangzhou-wantian-industrial-co-ltd-brake-caliper-kit-manufa.html</loc><lastmod>2026-11-13</lastmod></url>
+  <url><loc>https://thefactoryplug.com/manufacturers/changzhou-yaotu-international-trade-co-ltd-changzhou.html</loc><lastmod>2026-11-13</lastmod></url>
+  <url><loc>https://thefactoryplug.com/manufacturers/shenzhen-chejiashi-technology-co-ltd.html</loc><lastmod>2026-11-13</lastmod></url>
+  <url><loc>https://thefactoryplug.com/manufacturers/wuxi-costel-technology-ltd.html</loc><lastmod>2026-11-13</lastmod></url>
+  <url><loc>https://thefactoryplug.com/manufacturers/taiwan-racing-products-co-ltd.html</loc><lastmod>2026-11-13</lastmod></url>
 </urlset>
