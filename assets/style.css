@@ -452,6 +452,7 @@ footer.site small{display:block;margin-top:18px;line-height:1.7;color:#9AA1A9}
    names — may widen any page at phone width. */
 .prose,.content-sec p,.fact-row dd,.ev-scope,.vs-row>*{overflow-wrap:anywhere}
 .fact-row dd,.vs-row>*{min-width:0}
+.fact-row dt{min-width:0;overflow-wrap:anywhere;flex-shrink:1}
 .vs-row{flex-wrap:wrap}
 .pimg-main img{max-width:100%}
 /* guide strip on category pages */
