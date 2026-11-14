@@ -560,17 +560,3 @@ footer.site a{color:#FF8A3D}
 blockquote.script{background:#F5F5F2;border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin:20px 0;font-size:.95rem;line-height:1.65;color:var(--text)}
 blockquote.script p{margin:0}
 .prose blockquote.script{background:#f7f8fa;border-color:#e2e5ea;color:#1c1e24}
-
-/* --- Mobile tap-target pass 2026-11-13 (fleet mobile audit fixes) --- */
-@media (max-width:720px){
-  /* C3: header nav stays one scrollable row instead of three wrapped rows */
-  .nav nav{flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 24px),transparent 100%);mask-image:linear-gradient(to right,#000 calc(100% - 24px),transparent 100%)}
-  /* C2: logo link gets a full-height tap box */
-  .nav .logo{display:inline-flex;align-items:center;min-height:44px}
-  /* C2: inline content links get a taller hit area (visual rhythm kept via negative margin) */
-  p a,li a{display:inline-block;padding:10px 0;margin:-6px 0}
-  /* C2: breadcrumb links reach a real tap height */
-  .crumbs a,ol.crumbs a{display:inline-flex;align-items:center;min-height:44px;padding:6px 2px}
-  /* C5: filter selects at 16px stop the iOS focus zoom */
-  .lt-controls select,.filter-select{font-size:16px}
-}
