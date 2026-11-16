@@ -560,3 +560,27 @@ footer.site a{color:#FF8A3D}
 blockquote.script{background:#F5F5F2;border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin:20px 0;font-size:.95rem;line-height:1.65;color:var(--text)}
 blockquote.script p{margin:0}
 .prose blockquote.script{background:#f7f8fa;border-color:#e2e5ea;color:#1c1e24}
+
+/* --- Mobile tap-target pass 2026-11-16 (fleet Mobile Inspector rollout) ---
+   Supersedes the 2026-11-13 stylesheet-only block (commit d572120fe), which the
+   next auto-publish regenerated away because it never landed here in the CSS
+   source. This block lives in build.py AND in the shipped assets/style.css so
+   every rebuild regenerates it instead of erasing it. */
+@media (max-width:720px){
+  /* header nav: one scrollable row instead of wrapping to ~3 rows
+     (the wrapped nav made the sticky header 221px tall = 35% viewport crush
+     on product pages once the 74px sticky-buy bar is added) */
+  .nav nav{flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch}
+  /* logo link gets a full 44px tap box (its img renders 32px tall on mobile) */
+  .nav .logo{display:inline-flex;align-items:center;min-height:44px}
+  /* breadcrumb links reach 44px in both dimensions */
+  .crumbs a,ol.crumbs a{display:inline-flex;align-items:center;min-height:44px;padding:6px 8px;margin:0 -2px}
+  /* footer small-print links (contact email / DM) reach 44px */
+  footer.site small a{display:inline-flex;align-items:center;min-height:44px;padding:4px 2px}
+  /* section "view all" guide links reach 44px */
+  .sec-head .more{display:inline-flex;align-items:center;min-height:44px}
+  /* filter/vehicle selects at 16px stop the iOS focus zoom (were 14.08px) */
+  .lt-controls select,.filter-select{font-size:16px}
+}
+/* footer column links: widen the hit box past 44px without shifting the text */
+footer.site .cols a{padding:4px 6px;margin-left:-6px}
