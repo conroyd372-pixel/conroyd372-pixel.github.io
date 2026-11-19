@@ -180,7 +180,14 @@ p.sec-sub{color:var(--muted);margin-bottom:20px;max-width:720px;font-size:.95rem
 .meta-row{display:flex;flex-wrap:wrap;gap:8px}
 .chip{font-size:.72rem;font-weight:600;color:var(--muted);background:rgba(26,29,33,.055);border:1px solid var(--line);padding:4px 12px;border-radius:20px}
 .chip.hot{color:var(--burnt);border-color:rgba(255,107,26,.4);background:var(--gold-soft)}
-.psupplier{font-size:.78rem;color:var(--muted);overflow-wrap:anywhere}
+/* Byline slot is height-reserved (2026-11-19): a card whose listing has
+   no known supplier/rating renders the slot empty, and without the
+   reservation the card body collapsed by one byline line (~44px — the
+   linked-byline height set by the .psupplier a tap box below), leaving
+   the card visibly shorter than its row neighbours. The reservation
+   sits in the same band every credited card occupies, above the
+   margin-top:auto footer, so it reads as card rhythm, not a gap. */
+.psupplier{font-size:.78rem;color:var(--muted);overflow-wrap:anywhere;min-height:44px}
 .psupplier a{display:inline-flex;align-items:center;min-height:44px}
 .psupplier a{color:var(--muted);text-decoration:underline;text-decoration-color:rgba(26,29,33,.3);text-underline-offset:2px}
 .psupplier a:hover{color:var(--gold)}
