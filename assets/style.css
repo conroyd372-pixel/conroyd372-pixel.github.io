@@ -67,7 +67,12 @@ header.site{position:sticky;top:0;z-index:60;background:rgba(26,29,33,.97);backd
    icon at 38px. Never set this height above 32px without re-measuring the
    rendered width (height x 11.06) against the nav. */
 .logo img{height:32px;width:auto;max-width:100%;display:block;object-fit:contain;object-position:left center}
-header.site .wrap{max-width:1360px}
+header.site .wrap{max-width:1360px;padding-left:16px;padding-right:16px}
+   /* 2026-11-18 recording fix: the header container carries BOTH .wrap and
+   .nav; .nav's vertical-only padding (later, equal specificity) was wiping
+   .wrap's side gutters, so the logo and nav sat flush against the screen
+   edges — the owner's "pushed into the corners" note. The header now keeps
+   the same 16px / 20px gutters as every other .wrap on the site. */
 .nav nav{display:flex;gap:0;margin-left:auto;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px 0}
 .nav nav::-webkit-scrollbar{display:none}
 .nav nav a{color:#C9CDD2;font-size:.82rem;font-weight:600;padding:8px 6px;min-height:48px;display:inline-flex;align-items:center;border-radius:12px;white-space:nowrap;flex-shrink:0}
@@ -488,6 +493,7 @@ footer.site small{display:block;margin-top:18px;line-height:1.7;color:#9AA1A9}
 }
 @media(min-width:720px){
   .wrap{padding:0 20px}
+  header.site .wrap{padding-left:20px;padding-right:20px}
   .hero{padding:64px 0 48px}
   .cat-grid{grid-template-columns:repeat(auto-fill,minmax(min(220px,100%),1fr));gap:16px}
   .cat-card{padding:24px}
