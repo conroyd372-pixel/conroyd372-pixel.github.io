@@ -427,6 +427,11 @@ footer.site .cols>div{display:flex;flex-direction:column;align-items:flex-start}
 footer.site .cols b{padding:6px 6px 2px;line-height:1.4}
 footer.site .cols>div>span{padding:2px 6px}
 footer.site .cols a{display:inline-flex;align-items:center;padding:6px 6px;line-height:1.4}
+/* the template's legacy <br> separators become line-height-sized flex
+   items inside the columns and blow the row rhythm from 34px to ~55px
+   (measured, 2026-11-19 footer lane) — the flex column stacks the
+   links itself, so the breaks render nothing */
+footer.site .cols br{display:none}
 footer.site .foot-brand{margin-bottom:22px}
 footer.site .foot-logo{display:inline-flex;align-items:center;min-height:44px}
 footer.site .foot-logo img{height:26px;width:auto;max-width:100%;display:block;object-fit:contain;object-position:left center}
