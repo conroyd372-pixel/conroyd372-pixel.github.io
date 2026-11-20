@@ -423,8 +423,18 @@ border-radius:16px;border:1px solid var(--line);background:#ECECE4}
 /* footer */
 footer.site{border-top:0;padding:32px 0 48px;color:#B9BFC6;font-size:.85rem;background:var(--ink)}
 footer.site .cols{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
-footer.site .cols a{display:inline-flex;align-items:center;padding:2px 0;line-height:1.55}
-footer.site small{display:block;margin-top:18px;line-height:1.7;color:#9AA1A9}
+footer.site .cols>div{display:flex;flex-direction:column;align-items:flex-start}
+footer.site .cols b{padding:6px 6px 2px;line-height:1.4}
+footer.site .cols>div>span{padding:2px 6px}
+footer.site .cols a{display:inline-flex;align-items:center;padding:6px 6px;line-height:1.4}
+footer.site .foot-brand{margin-bottom:22px}
+footer.site .foot-logo{display:inline-flex;align-items:center;min-height:44px}
+footer.site .foot-logo img{height:26px;width:auto;max-width:100%;display:block;object-fit:contain;object-position:left center}
+footer.site small{display:block;margin-top:22px;line-height:1.7;color:#9AA1A9;border-top:1px solid rgba(245,245,242,.14);padding-top:16px}
+footer.site .foot-disclosure{display:block}
+footer.site .foot-contact{display:flex;flex-wrap:wrap;align-items:center;gap:2px 10px;margin-top:10px}
+footer.site .foot-contact a{display:inline-flex;align-items:center;padding:2px 4px}
+footer.site .foot-meta{display:block;margin-top:8px}
 /* empty state */
 .empty{background:var(--card);border:1px dashed var(--line2);border-radius:var(--radius);padding:28px 20px;text-align:center;color:var(--muted)}
 /* direct answer box */
@@ -628,16 +638,29 @@ blockquote.script p{margin:0}
   .nav .logo{display:inline-flex;align-items:center;min-height:44px}
   /* breadcrumb links reach 44px in both dimensions */
   .crumbs a,ol.crumbs a{display:inline-flex;align-items:center;min-height:44px;padding:6px 8px;margin:0 -2px}
-  /* footer small-print links (contact email / DM) reach 44px */
-  footer.site small a{display:inline-flex;align-items:center;min-height:44px;padding:4px 2px}
-  /* footer column links reach 44px on touch widths only — at desktop
-     widths the 48px tap box stretched every link row and left ~48px
-     gaps between footer links (2026-11-19 fix) */
-  footer.site .cols a{min-height:48px;padding:4px 0}
+  /* footer links: the >=44px hit box comes from the global Tier-2
+     expansion at the end of this stylesheet (44px box, ~34px rhythm)
+     at EVERY width — the old mobile-only 48px rows that stretched
+     every footer link row are gone (2026-11-19 footer lane) */
+  footer.site .foot-contact{row-gap:6px}
   /* section "view all" guide links reach 44px */
   .sec-head .more{display:inline-flex;align-items:center;min-height:44px}
   /* filter/vehicle selects at 16px stop the iOS focus zoom (were 14.08px) */
   .lt-controls select,.filter-select{font-size:16px}
 }
-/* footer column links: widen the hit box past 44px without shifting the text */
-footer.site .cols a{padding:4px 6px;margin-left:-6px}
+/* Footer hit expansion (Tier-2 pattern, 2026-11-19 footer lane): every
+   footer link's box measures >=44px tall, but negative vertical margins
+   hand the extra height back, so the visible row rhythm stays ~34px.
+   Headings, text and links share one left axis — 6px padding on all
+   three, no negative-margin shift (the old margin-left:-6px rule put
+   every link 6px left of its heading). */
+footer.site .cols a{min-height:44px;margin-top:-5px;margin-bottom:-5px}
+footer.site .foot-contact a{min-height:44px;margin-top:-8px;margin-bottom:-8px}
+@media (max-width:480px){
+  /* Footer stacks to ONE column on small phones (2026-11-19 footer
+     lane): the 2-column grid left the tall Catalog column towering
+     over the short More column with dead voids beside it, and long
+     labels wrapped inside ~167px columns. One axis, full width. */
+  footer.site .cols{grid-template-columns:1fr;gap:28px}
+  footer.site .foot-logo img{height:22px}
+}
