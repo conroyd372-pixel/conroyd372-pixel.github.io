@@ -120,7 +120,7 @@ header.site .wrap{max-width:1360px;padding-left:16px;padding-right:16px}
 section.block{padding:40px 0}
 .sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:4px}
 .sec-head .more{font-size:.86rem;font-weight:600;white-space:nowrap}
-h2.sec{font-size:1.5rem;margin-bottom:6px;letter-spacing:-.01em;font-weight:750}
+h1.sec,h2.sec{font-size:1.5rem;margin-bottom:6px;letter-spacing:-.01em;font-weight:750}
 p.sec-sub{color:var(--muted);margin-bottom:20px;max-width:720px;font-size:.95rem}
 /* ---------- category cards (2-col on phones) ---------- */
 .cat-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
@@ -210,6 +210,10 @@ p.sec-sub{color:var(--muted);margin-bottom:20px;max-width:720px;font-size:.95rem
 .lchip{padding:8px 16px;min-height:44px;display:inline-flex;align-items:center;border-radius:20px;border:1px solid var(--line2);background:transparent;color:var(--muted);font-size:.84rem;font-weight:600;cursor:pointer}
 .lchip:hover{border-color:var(--gold);color:var(--text)}
 .lchip.active{border-color:var(--gold);color:var(--gold);background:var(--gold-soft)}
+.filter-row{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 18px}
+.filter-btn{padding:8px 16px;min-height:44px;display:inline-flex;align-items:center;border-radius:20px;border:1px solid var(--line2);background:transparent;color:var(--muted);font-size:.84rem;font-weight:600;cursor:pointer}
+.filter-btn:hover{border-color:var(--gold);color:var(--text)}
+.filter-btn.active{border-color:var(--gold);color:var(--gold);background:var(--gold-soft)}
 .lt-count{margin-left:auto;font-size:.84rem;color:var(--muted)}
 .lt-site-link{display:block;margin-top:10px;font-size:.85rem;text-align:center}
 .cat-pager{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;margin:24px 0 8px}
