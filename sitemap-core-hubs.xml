@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  <url><loc>https://thefactoryplug.com/</loc><lastmod>2026-11-23</lastmod></url>
-  <url><loc>https://thefactoryplug.com/wheels/</loc><lastmod>2026-11-23</lastmod></url>
+  <url><loc>https://thefactoryplug.com/</loc><lastmod>2026-11-24</lastmod></url>
+  <url><loc>https://thefactoryplug.com/wheels/</loc><lastmod>2026-11-24</lastmod></url>
   <url><loc>https://thefactoryplug.com/brakes/</loc><lastmod>2026-11-22</lastmod></url>
   <url><loc>https://thefactoryplug.com/exhaust/</loc><lastmod>2026-11-22</lastmod></url>
   <url><loc>https://thefactoryplug.com/carbon/</loc><lastmod>2026-11-23</lastmod></url>
   <url><loc>https://thefactoryplug.com/lighting/</loc><lastmod>2026-11-23</lastmod></url>
   <url><loc>https://thefactoryplug.com/suspension/</loc><lastmod>2026-11-23</lastmod></url>
   <url><loc>https://thefactoryplug.com/engine/</loc><lastmod>2026-11-23</lastmod></url>
-  <url><loc>https://thefactoryplug.com/interior/</loc><lastmod>2026-11-22</lastmod></url>
+  <url><loc>https://thefactoryplug.com/interior/</loc><lastmod>2026-11-24</lastmod></url>
   <url><loc>https://thefactoryplug.com/offroad/</loc><lastmod>2026-11-22</lastmod></url>
   <url><loc>https://thefactoryplug.com/exterior/</loc><lastmod>2026-11-22</lastmod></url>
   <url><loc>https://thefactoryplug.com/drivetrain/</loc><lastmod>2026-11-22</lastmod></url>
@@ -18,7 +18,7 @@
   <url><loc>https://thefactoryplug.com/tools/</loc><lastmod>2026-11-22</lastmod></url>
   <url><loc>https://thefactoryplug.com/k-swap/</loc><lastmod>2026-11-22</lastmod></url>
   <url><loc>https://thefactoryplug.com/conversion-kits/</loc><lastmod>2026-11-23</lastmod></url>
-  <url><loc>https://thefactoryplug.com/garage/</loc><lastmod>2026-11-23</lastmod></url>
+  <url><loc>https://thefactoryplug.com/garage/</loc><lastmod>2026-11-24</lastmod></url>
   <url><loc>https://thefactoryplug.com/garage/g80/</loc><lastmod>2026-11-22</lastmod></url>
   <url><loc>https://thefactoryplug.com/garage/g82/</loc><lastmod>2026-11-22</lastmod></url>
   <url><loc>https://thefactoryplug.com/garage/f30/</loc><lastmod>2026-11-22</lastmod></url>
@@ -38,9 +38,9 @@
   <url><loc>https://thefactoryplug.com/garage/q50/</loc><lastmod>2026-11-22</lastmod></url>
   <url><loc>https://thefactoryplug.com/garage/f10/</loc><lastmod>2026-11-22</lastmod></url>
   <url><loc>https://thefactoryplug.com/garage/f20/</loc><lastmod>2026-11-22</lastmod></url>
-  <url><loc>https://thefactoryplug.com/garage/mk7/</loc><lastmod>2026-11-22</lastmod></url>
   <url><loc>https://thefactoryplug.com/garage/992/</loc><lastmod>2026-11-22</lastmod></url>
   <url><loc>https://thefactoryplug.com/garage/g87/</loc><lastmod>2026-11-22</lastmod></url>
+  <url><loc>https://thefactoryplug.com/garage/mk7/</loc><lastmod>2026-11-24</lastmod></url>
   <url><loc>https://thefactoryplug.com/garage/f90/</loc><lastmod>2026-11-22</lastmod></url>
   <url><loc>https://thefactoryplug.com/garage/brz/</loc><lastmod>2026-11-22</lastmod></url>
   <url><loc>https://thefactoryplug.com/garage/f87/</loc><lastmod>2026-11-22</lastmod></url>
@@ -103,7 +103,6 @@
   <url><loc>https://thefactoryplug.com/garage/z33/</loc><lastmod>2026-11-22</lastmod></url>
   <url><loc>https://thefactoryplug.com/garage/z34/</loc><lastmod>2026-11-22</lastmod></url>
   <url><loc>https://thefactoryplug.com/garage/w222/</loc><lastmod>2026-11-23</lastmod></url>
-  <url><loc>https://thefactoryplug.com/garage/mk8/</loc><lastmod>2026-11-22</lastmod></url>
   <url><loc>https://thefactoryplug.com/garage/g12/</loc><lastmod>2026-11-22</lastmod></url>
   <url><loc>https://thefactoryplug.com/garage/g15/</loc><lastmod>2026-11-22</lastmod></url>
   <url><loc>https://thefactoryplug.com/garage/g60/</loc><lastmod>2026-11-22</lastmod></url>
@@ -115,6 +114,7 @@
   <url><loc>https://thefactoryplug.com/garage/f23/</loc><lastmod>2026-11-22</lastmod></url>
   <url><loc>https://thefactoryplug.com/garage/e71/</loc><lastmod>2026-11-22</lastmod></url>
   <url><loc>https://thefactoryplug.com/garage/fl5/</loc><lastmod>2026-11-22</lastmod></url>
+  <url><loc>https://thefactoryplug.com/garage/mk8/</loc><lastmod>2026-11-24</lastmod></url>
   <url><loc>https://thefactoryplug.com/garage/987/</loc><lastmod>2026-11-22</lastmod></url>
   <url><loc>https://thefactoryplug.com/garage/g06/</loc><lastmod>2026-11-22</lastmod></url>
   <url><loc>https://thefactoryplug.com/garage/e87/</loc><lastmod>2026-11-22</lastmod></url>
@@ -137,10 +137,10 @@
   <url><loc>https://thefactoryplug.com/disclosure.html</loc><lastmod>2026-11-22</lastmod></url>
   <url><loc>https://thefactoryplug.com/just-dropped.html</loc><lastmod>2026-11-22</lastmod></url>
   <url><loc>https://thefactoryplug.com/about.html</loc><lastmod>2026-11-22</lastmod></url>
-  <url><loc>https://thefactoryplug.com/privacy.html</loc><lastmod>2026-11-23</lastmod></url>
-  <url><loc>https://thefactoryplug.com/terms.html</loc><lastmod>2026-11-23</lastmod></url>
-  <url><loc>https://thefactoryplug.com/refund.html</loc><lastmod>2026-11-23</lastmod></url>
-  <url><loc>https://thefactoryplug.com/shipping.html</loc><lastmod>2026-11-23</lastmod></url>
+  <url><loc>https://thefactoryplug.com/privacy.html</loc><lastmod>2026-11-24</lastmod></url>
+  <url><loc>https://thefactoryplug.com/terms.html</loc><lastmod>2026-11-24</lastmod></url>
+  <url><loc>https://thefactoryplug.com/refund.html</loc><lastmod>2026-11-24</lastmod></url>
+  <url><loc>https://thefactoryplug.com/shipping.html</loc><lastmod>2026-11-24</lastmod></url>
   <url><loc>https://thefactoryplug.com/contact.html</loc><lastmod>2026-11-22</lastmod></url>
   <url><loc>https://thefactoryplug.com/guides/</loc><lastmod>2026-11-22</lastmod></url>
   <url><loc>https://thefactoryplug.com/guides/how-to-buy-car-parts-safely-on-alibaba.html</loc><lastmod>2026-11-22</lastmod></url>
