@@ -424,26 +424,56 @@ border-radius:16px;border:1px solid var(--line);background:#ECECE4}
 .prose h2{margin:28px 0 8px;font-size:1.25rem}
 .prose p,.prose li{color:#2B3036;margin-bottom:10px}
 .prose ul{margin-left:20px}
-/* footer */
-footer.site{border-top:0;padding:32px 0 48px;color:#B9BFC6;font-size:.85rem;background:var(--ink)}
-footer.site .cols{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
-footer.site .cols>div{display:flex;flex-direction:column;align-items:flex-start}
-footer.site .cols b{padding:6px 6px 2px;line-height:1.4}
-footer.site .cols>div>span{padding:2px 6px}
-footer.site .cols a{display:inline-flex;align-items:center;padding:6px 6px;line-height:1.4}
-/* the template's legacy <br> separators become line-height-sized flex
-   items inside the columns and blow the row rhythm from 34px to ~55px
-   (measured, 2026-11-19 footer lane) — the flex column stacks the
-   links itself, so the breaks render nothing */
-footer.site .cols br{display:none}
-footer.site .foot-brand{margin-bottom:22px}
-footer.site .foot-logo{display:inline-flex;align-items:center;min-height:44px}
+/* footer — house Layout A (Minimal Bar), 2026-11-24 footer lane:
+   brand block → 3 themed columns → "The Family" strip → legal bar.
+   Canonical pattern per local-footer-logo-system (sf-* classes shared
+   with the other six properties); colors adapted to FactoryPlug tokens.
+   This site's strip carries SEVEN brands (the host is excluded from its
+   own strip, and this is the only property whose strip includes all
+   seven of the others); the 7th mobile slot spans the full row,
+   centered, so the 2-col phone grid stays balanced. */
+footer.site{border-top:0;padding:44px 0 calc(28px + env(safe-area-inset-bottom));color:#B9BFC6;font-size:.85rem;background:var(--ink)}
+footer.site p{margin:0}
+footer.site .sf-main{display:flex;gap:48px;flex-wrap:wrap;justify-content:space-between;margin-bottom:36px}
+footer.site .sf-brand{max-width:320px}
+footer.site .foot-logo{display:inline-flex;align-items:center;min-height:44px;margin-bottom:14px}
 footer.site .foot-logo img{height:26px;width:auto;max-width:100%;display:block;object-fit:contain;object-position:left center}
-footer.site small{display:block;margin-top:22px;line-height:1.7;color:#9AA1A9;border-top:1px solid rgba(245,245,242,.14);padding-top:16px}
-footer.site .foot-disclosure{display:block}
-footer.site .foot-contact{display:flex;flex-wrap:wrap;align-items:center;gap:2px 10px;margin-top:10px}
-footer.site .foot-contact a{display:inline-flex;align-items:center;padding:2px 4px}
-footer.site .foot-meta{display:block;margin-top:8px}
+footer.site .sf-tagline{font-size:13.5px;line-height:1.65;color:#B9BFC6}
+footer.site .sf-social{margin-top:16px;font-size:13px;line-height:1.5}
+footer.site .sf-social a{display:inline-flex;align-items:center;min-height:44px}
+footer.site .sf-social br{display:none}
+footer.site .sf-social span{display:block;color:#9AA1A9;margin-top:2px}
+footer.site .sf-cols{display:flex;gap:56px;flex-wrap:wrap}
+footer.site .sf-col-title{font-size:11px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:#F5F5F2;margin-bottom:14px}
+footer.site .sf-col a{display:flex;align-items:center;min-height:44px;font-size:13px;color:#9AA1A9;transition:color .15s}
+footer.site .sf-col a:hover{color:#F5F5F2}
+footer.site .sf-divider{height:1px;background:rgba(245,245,242,.14);margin-bottom:24px}
+footer.site .sf-family{margin-bottom:36px}
+footer.site .sf-family-label{font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#F5F5F2;margin-bottom:6px}
+footer.site .sf-family-line{font-size:13px;color:#B9BFC6;margin-bottom:18px}
+footer.site .sf-band{display:grid;grid-template-columns:repeat(7,1fr);gap:16px}
+footer.site .sf-flink{display:flex;align-items:center;justify-content:center;height:48px}
+footer.site .sf-flink img{max-width:100%;height:auto;width:auto;filter:brightness(0) invert(.68);opacity:.72;transition:filter 200ms cubic-bezier(.16,1,.3,1),opacity 200ms cubic-bezier(.16,1,.3,1)}
+footer.site .sf-flink:hover img,footer.site .sf-flink:focus-visible img{filter:none;opacity:1}
+footer.site .sf-flink:focus-visible{outline:2px solid #FF8A3D;outline-offset:2px}
+footer.site .sf-policy{font-size:12.5px;line-height:1.55;max-width:760px;color:#9AA1A9;margin-bottom:14px}
+footer.site .sf-contact{font-size:13px;line-height:1.6;color:#9AA1A9;margin-bottom:18px}
+footer.site .sf-contact a{display:inline-flex;align-items:center;min-height:44px}
+footer.site .sf-legal{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px 24px;border-top:1px solid rgba(245,245,242,.14);padding-top:18px}
+footer.site .sf-meta{font-size:13px;color:#9AA1A9}
+footer.site .sf-meta b{color:var(--gold)}
+footer.site .sf-legal-links{display:flex;flex-wrap:wrap;gap:4px 24px}
+footer.site .sf-legal-links a{display:inline-flex;align-items:center;min-height:44px;font-size:13px;color:#9AA1A9;transition:color .15s}
+footer.site .sf-legal-links a:hover{color:#F5F5F2}
+@media (max-width:767px){
+  footer.site{padding-top:36px}
+  footer.site .sf-main{gap:32px;margin-bottom:28px}
+  footer.site .sf-cols{display:grid;grid-template-columns:1fr 1fr;gap:28px 20px;width:100%}
+  footer.site .sf-band{grid-template-columns:repeat(2,1fr)}
+  footer.site .sf-flink{height:44px}
+  footer.site .sf-flink:last-child{grid-column:1/-1}
+  footer.site .sf-family{margin-bottom:28px}
+}
 /* empty state */
 .empty{background:var(--card);border:1px dashed var(--line2);border-radius:var(--radius);padding:28px 20px;text-align:center;color:var(--muted)}
 /* direct answer box */
@@ -543,7 +573,6 @@ footer.site .foot-meta{display:block;margin-top:8px}
   .buy-panel h1{font-size:1.5rem}
   .price-xl{font-size:2rem}
   section.block{padding:52px 0}
-  footer.site .cols{grid-template-columns:repeat(3,1fr);gap:32px}
   .filter-panel{flex-direction:row;flex-wrap:wrap;align-items:flex-end}
   .filter-group{min-width:170px}
   .calc .calc-row{grid-template-columns:1fr 1fr}
@@ -576,7 +605,6 @@ footer.site .foot-meta{display:block;margin-top:8px}
    on filled buttons, large graphic elements and the hero headline accent */
 a{color:#C2510A}
 footer.site a{color:#FF8A3D}
-@media(min-width:900px){footer.site .cols{grid-template-columns:repeat(5,1fr)}}
 .hero-art-wrap{position:relative;padding:32px 0 8px 8px}
 .hero-blue{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .hero-photo{position:relative;margin:0 0 0 auto;max-width:432px;background:#F5F5F2;padding:12px 12px 8px;border:1px solid rgba(245,245,242,.22)}
@@ -647,11 +675,10 @@ blockquote.script p{margin:0}
   .nav .logo{display:inline-flex;align-items:center;min-height:44px}
   /* breadcrumb links reach 44px in both dimensions */
   .crumbs a,ol.crumbs a{display:inline-flex;align-items:center;min-height:44px;padding:6px 8px;margin:0 -2px}
-  /* footer links: the >=44px hit box comes from the global Tier-2
-     expansion at the end of this stylesheet (44px box, ~34px rhythm)
-     at EVERY width — the old mobile-only 48px rows that stretched
-     every footer link row are gone (2026-11-19 footer lane) */
-  footer.site .foot-contact{row-gap:6px}
+  /* footer links: the >=44px hit box is carried by the Layout A sf-*
+     rules in the footer section above (plain 44px boxes at every
+     width; the 2026-11-19 negative-margin expansion retired with the
+     old .cols classes in the 2026-11-24 footer lane) */
   /* section "view all" guide links reach 44px */
   .sec-head .more{display:inline-flex;align-items:center;min-height:44px}
   /* filter/vehicle selects at 16px stop the iOS focus zoom (were 14.08px) */
@@ -663,13 +690,11 @@ blockquote.script p{margin:0}
    Headings, text and links share one left axis — 6px padding on all
    three, no negative-margin shift (the old margin-left:-6px rule put
    every link 6px left of its heading). */
-footer.site .cols a{min-height:44px;margin-top:-5px;margin-bottom:-5px}
-footer.site .foot-contact a{min-height:44px;margin-top:-8px;margin-bottom:-8px}
+/* (2026-11-24 footer lane: the negative-margin hit-expansion rules for
+   the old .cols/.foot-contact links retired with those classes — the
+   Layout A sf-* links carry plain 44px boxes, no negative margins.) */
 @media (max-width:480px){
-  /* Footer stacks to ONE column on small phones (2026-11-19 footer
-     lane): the 2-column grid left the tall Catalog column towering
-     over the short More column with dead voids beside it, and long
-     labels wrapped inside ~167px columns. One axis, full width. */
-  footer.site .cols{grid-template-columns:1fr;gap:28px}
+  /* Brand lockup steps down on small phones (carried over from the
+     2026-11-19 footer lane). */
   footer.site .foot-logo img{height:22px}
 }
