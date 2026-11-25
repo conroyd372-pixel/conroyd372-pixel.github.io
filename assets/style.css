@@ -441,7 +441,6 @@ footer.site .foot-logo img{height:26px;width:auto;max-width:100%;display:block;o
 footer.site .sf-tagline{font-size:13.5px;line-height:1.65;color:#B9BFC6}
 footer.site .sf-social{margin-top:16px;font-size:13px;line-height:1.5}
 footer.site .sf-social a{display:inline-flex;align-items:center;min-height:44px}
-footer.site .sf-social br{display:none}
 footer.site .sf-social span{display:block;color:#9AA1A9;margin-top:2px}
 footer.site .sf-cols{display:flex;gap:56px;flex-wrap:wrap}
 footer.site .sf-col-title{font-size:11px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:#F5F5F2;margin-bottom:14px}
