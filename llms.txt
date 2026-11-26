@@ -1,6 +1,6 @@
-# FactoryPlug — Verified Factory Directory
+# FactoryPlug — Factory Directory
 
-> FactoryPlug (thefactoryplug.com) is a free directory of 3,896 vetted Alibaba supplier listings with real prices, real specs and real MOQs, plus 30 manufacturer profiles. No markup, no membership — free forever. Every listing links direct to the factory, so buyers skip the middleman and source car parts at factory-direct prices.
+> FactoryPlug (thefactoryplug.com) is a free directory of 3,896 Alibaba supplier listings with real prices, real specs and real MOQs, plus 30 manufacturer profiles. No markup, no membership — free forever. Every listing links direct to the factory, so buyers skip the middleman and source car parts at factory-direct prices.
 
 ## Key pages
 
